@@ -5,4 +5,4 @@ This is a test edit by Alexis.
 
 This is a test edit by Sanchit.
 
-This is a test edit by Trevor
+This is a test edit by Trevor.
