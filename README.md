@@ -8,3 +8,8 @@ This is a test edit by Sanchit Chopra.
 This is a test edit by Trevor
 
 This is a test edit by Saneeta.
+
+
+Project Architecture Outline:
+
+![CS361_WeatherAvenger_Architecture](https://user-images.githubusercontent.com/35415571/86540210-5f477580-beb8-11ea-86ae-4c48302a94bd.png)
