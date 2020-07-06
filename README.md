@@ -9,7 +9,7 @@ This is a test edit by Trevor
 
 This is a test edit by Saneeta.
 
-this is a test edit by Zuhair, hope this works! testing...
+this is a test edit by Zuhair, hope this works!
 
 Project Architecture Outline:
 
