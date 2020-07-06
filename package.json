@@ -1,0 +1,26 @@
+{
+  "name": "cs361_weather_app",
+  "version": "1.0.0",
+  "description": "A simple weather app for a group project in OSU CS 361",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DysL3xiA/CS361_Weather_App.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DysL3xiA/CS361_Weather_App/issues"
+  },
+  "homepage": "https://github.com/DysL3xiA/CS361_Weather_App#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "express-handlebars": "^4.0.5",
+    "handlebars": "^4.7.6"
+  }
+}
