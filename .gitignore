@@ -102,3 +102,24 @@ dist
 
 # TernJS port file
 .tern-port
+
+# VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# JetBrains files 
+
+.idea/*
+
+#env variables
+.env
+
+# DynamoDB Local files
+.dynamodb/
+
+# TernJS port file
+.tern-port
