@@ -37,5 +37,26 @@ app.listen(port, () => console.log(`Listening on port ${port}`));
  ********************************************/
 
 app.get("/", function(req, res){
-  res.render("index");
+  res.render("index", {
+    
+    currentLocation: '---',
+    
+    mondayTemperature: '--',
+    tuesdayTemperature: '--',
+    wednesdayTemperature: '--',
+    thursdayTemperature: '--',
+    fridayTemperature: '--',
+    saturdayTemperature: '--',
+    sundayTemperature: '--',
+    
+    mondayPrecipitation: '--%',
+    tuesdayPrecipitation: '--%',
+    wednesdayPrecipitation: '--%',
+    thursdayPrecipitation: '--%',
+    fridayPrecipitation: '--%',
+    saturdayPrecipitation: '--%',
+    sundayPrecipitation: '--%',
+
+
+  });
 });
