@@ -40,8 +40,28 @@ app.get("/", function(req, res){
   res.render("index", {
     
     currentLocation: '---',
-    
-    mondayTemperature: '--',
+
+    time: '7:00 PM',
+    date: '7/10/20',
+    timeZone: 'PST',
+
+    todayDay: 'Friday',
+    dayTwoDay: 'Saturday',
+    dayThreeDay: 'Sunday',
+    dayFourDay: 'Monday',
+    dayFiveDay: 'Tuesday',
+    daySixDay: 'Wednesday',
+    daySevenDay: 'Thursday',
+
+    todayDate: '10',
+    dayTwoDate: '11',
+    dayThreeDate: '12',
+    dayFourDate: '13',
+    dayFiveDate: '14',
+    daySixDate: '15',
+    daySevenDate: '16',
+
+    todayTemperature: '--',
     tuesdayTemperature: '--',
     wednesdayTemperature: '--',
     thursdayTemperature: '--',
@@ -57,6 +77,8 @@ app.get("/", function(req, res){
     saturdayPrecipitation: '--%',
     sundayPrecipitation: '--%',
 
+    developer: 'Weather Avengers',
+    courseName: 'CS 361 - Summer 2020'
 
   });
 });
