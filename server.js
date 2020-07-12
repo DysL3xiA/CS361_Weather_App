@@ -57,6 +57,7 @@ app.get("/", function(req, res){
     // get day of week
     let timestamp = weather_data.daily[0].dt;
     let a = new Date(timestamp*1000);
+    console.log(a);
     let days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
     let dayNum = a.getDay();
     let dayArray = [];
