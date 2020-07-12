@@ -43,14 +43,32 @@ app.get("/", function(req, res){
   let city = 'portland';
   let lat = 45.5202;
   let lon = -122.676483;
-  let url = `http://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&appid=${apiKey}`;
+  let units = 'imperial'
+  let url = `http://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=${units}&appid=${apiKey}`;
   request(url, function (err, response, body) {
     if(err){
       console.log('error:', error);
     }
     else {
       weather_data = JSON.parse(body)
+      // console.log(weather_data.daily);
     }
+
+    // get day of week
+    let timestamp = weather_data.daily[0].dt;
+    let a = new Date(timestamp*1000);
+    let days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    let dayNum = a.getDay();
+    let dayArray = [];
+    let currentDayOfWeek = days[dayNum]
+    dayArray.push(currentDayOfWeek);
+
+    for (let i = 1; i < 7; i++){
+      dayNum++;
+      dayNum %= 7;
+      dayArray.push(days[dayNum]);
+    }
+
     res.render("index", {
       currentLocation: '---',
 
@@ -58,13 +76,13 @@ app.get("/", function(req, res){
       date: '7/10/20',
       timeZone: 'PST',
 
-      todayDay: 'Friday',
-      dayTwoDay: 'Saturday',
-      dayThreeDay: 'Sunday',
-      dayFourDay: 'Monday',
-      dayFiveDay: 'Tuesday',
-      daySixDay: 'Wednesday',
-      daySevenDay: 'Thursday',
+      todayDay: `${dayArray[0]}`,
+      dayTwoDay: `${dayArray[1]}`,
+      dayThreeDay: `${dayArray[2]}`,
+      dayFourDay: `${dayArray[3]}`,
+      dayFiveDay: `${dayArray[4]}`,
+      daySixDay: `${dayArray[5]}`,
+      daySevenDay: `${dayArray[6]}`,
 
       todayDate: '10',
       dayTwoDate: '11',
@@ -97,6 +115,14 @@ app.get("/", function(req, res){
       dayFiveHumidity: '--%',
       daySixHumidity: '--%',
       daySevenHumidity: '--%',
+
+      todayWind: `${weather_data.current.wind_speed}` + ((units == 'imperial') ? ' miles/hour' : ' metres/sec'),
+      dayTwoWind: `${weather_data.daily[1].wind_speed}` + ((units == 'imperial') ? ' miles/hour' : ' metres/sec'),
+      dayThreeWind: `${weather_data.daily[2].wind_speed}` + ((units == 'imperial') ? ' miles/hour' : ' metres/sec'),
+      dayFourWind: `${weather_data.daily[3].wind_speed}` + ((units == 'imperial') ? ' miles/hour' : ' metres/sec'),
+      dayFiveWind: `${weather_data.daily[4].wind_speed}` + ((units == 'imperial') ? ' miles/hour' : ' metres/sec'),
+      daySixWind: `${weather_data.daily[5].wind_speed}` + ((units == 'imperial') ? ' miles/hour' : ' metres/sec'),
+      daySevenWind: `${weather_data.daily[6].wind_speed}` + ((units == 'imperial') ? ' miles/hour' : ' metres/sec'),
 
       todayIcon: `http://openweathermap.org/img/wn/${weather_data.current.weather[0].icon}@2x.png`,
 
