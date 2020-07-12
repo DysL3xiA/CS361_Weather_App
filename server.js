@@ -90,6 +90,14 @@ app.get("/", function(req, res){
       daySixPrecipitation: '--%',
       daySevenPrecipitation: '--%',
 
+      todayHumidity: '--%',
+      dayTwoHumidity: '--%',
+      dayThreeHumidity: '--%',
+      dayFourHumidity: '--%',
+      dayFiveHumidity: '--%',
+      daySixHumidity: '--%',
+      daySevenHumidity: '--%',
+
       todayIcon: `http://openweathermap.org/img/wn/${weather_data.current.weather[0].icon}@2x.png`,
 
       developer: 'Weather Avengers',
