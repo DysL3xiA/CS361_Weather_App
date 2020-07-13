@@ -40,7 +40,7 @@ app.listen(port, () => console.log(`Listening on port ${port}`));
 app.get("/", function(req, res){
   var weather_data;
   let apiKey = '364c1375ab235fcd9a6e5c2a537733e6';
-  let city = 'portland';
+  let city = 'Portland, OR';
   let lat = 45.5202;
   let lon = -122.676483;
   let units = 'imperial'
@@ -78,11 +78,11 @@ app.get("/", function(req, res){
     var daySevenDate = new Date(weather_data.daily[6].dt*1000);
 
     res.render("index", {
-      currentLocation: '---',
+      currentLocation: city,
 
       time: date.toLocaleTimeString('en-US'),
       date: date.toDateString(),
-      timeZone: weather_data.timezone,
+      //timeZone: weather_data.timezone,
 
       todayDay: days[date.getDay()],
       dayTwoDay: days[dayTwoDate.getDay()],
@@ -124,15 +124,21 @@ app.get("/", function(req, res){
       daySixHumidity: '--%',
       daySevenHumidity: '--%',
 
-      todayWind: weather_data.current.wind_speed + ((units == 'imperial') ? 'mph' : ' metres/sec'),
-      dayTwoWind: weather_data.daily[1].wind_speed + ((units == 'imperial') ? 'mph' : ' metres/sec'),
-      dayThreeWind: weather_data.daily[2].wind_speed + ((units == 'imperial') ? 'mph' : ' metres/sec'),
-      dayFourWind: weather_data.daily[3].wind_speed + ((units == 'imperial') ? 'mph' : ' metres/sec'),
-      dayFiveWind: weather_data.daily[4].wind_speed + ((units == 'imperial') ? 'mph' : ' metres/sec'),
-      daySixWind: weather_data.daily[5].wind_speed + ((units == 'imperial') ? 'mph' : ' metres/sec'),
+      todayWind: weather_data.current.wind_speed + ((units == 'imperial') ? ' mph' : ' metres/sec'),
+      dayTwoWind: weather_data.daily[1].wind_speed + ((units == 'imperial') ? ' mph' : ' metres/sec'),
+      dayThreeWind: weather_data.daily[2].wind_speed + ((units == 'imperial') ? ' mph' : ' metres/sec'),
+      dayFourWind: weather_data.daily[3].wind_speed + ((units == 'imperial') ? ' mph' : ' metres/sec'),
+      dayFiveWind: weather_data.daily[4].wind_speed + ((units == 'imperial') ? ' mph' : ' metres/sec'),
+      daySixWind: weather_data.daily[5].wind_speed + ((units == 'imperial') ? ' mph' : ' metres/sec'),
       daySevenWind: weather_data.daily[6].wind_speed + ((units == 'imperial') ? ' mph' : ' metres/sec'),
 
-      todayIcon: `http://openweathermap.org/img/wn/${weather_data.current.weather[0].icon}@2x.png`,
+      todayIcon: weather_data.current.weather[0].icon,
+      dayTwoIcon: weather_data.daily[1].weather[0].icon,
+      dayThreeIcon: weather_data.daily[2].weather[0].icon,
+      dayFourIcon: weather_data.daily[3].weather[0].icon,
+      dayFiveIcon: weather_data.daily[4].weather[0].icon,
+      daySixIcon: weather_data.daily[5].weather[0].icon,
+      daySevenIcon: weather_data.daily[6].weather[0].icon,
 
       developer: 'Weather Avengers',
       courseName: 'CS 361 - Summer 2020'

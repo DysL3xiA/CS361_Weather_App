@@ -6,3 +6,7 @@ img {
     max-width: 500px;
     margin: auto;
   }
+
+.newHeader, .timeZone, .weather, .disclaimer {
+  text-align: center;
+}
