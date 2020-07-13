@@ -19,6 +19,7 @@ var handlebars = require('express-handlebars').create({defaultLayout:'main'});
 const port = process.env.PORT || 5000;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+var moment = require('moment-timezone');
 
 //static files
 app.use(express.static('client'));
@@ -69,36 +70,43 @@ app.get("/", function(req, res){
     //   dayArray.push(days[dayNum]);
     // }
 
-    var date = new Date(weather_data.current.dt*1000);
-    var dayTwoDate = new Date(weather_data.daily[1].dt*1000);
-    var dayThreeDate = new Date(weather_data.daily[2].dt*1000);
-    var dayFourDate = new Date(weather_data.daily[3].dt*1000);
-    var dayFiveDate = new Date(weather_data.daily[4].dt*1000);
-    var daySixDate = new Date(weather_data.daily[5].dt*1000);
-    var daySevenDate = new Date(weather_data.daily[6].dt*1000);
+    // var date = new Date(weather_data.current.dt*1000);
+    // var dayTwoDate = new Date(weather_data.daily[1].dt*1000);
+    // var dayThreeDate = new Date(weather_data.daily[2].dt*1000);
+    // var dayFourDate = new Date(weather_data.daily[3].dt*1000);
+    // var dayFiveDate = new Date(weather_data.daily[4].dt*1000);
+    // var daySixDate = new Date(weather_data.daily[5].dt*1000);
+    // var daySevenDate = new Date(weather_data.daily[6].dt*1000);
+
+    var date = moment.unix(weather_data.current.dt).tz(weather_data.timezone);
+    var dayTwoDate = moment.unix(weather_data.daily[1].dt).tz(weather_data.timezone);
+    var dayThreeDate = moment.unix(weather_data.daily[2].dt).tz(weather_data.timezone);
+    var dayFourDate = moment.unix(weather_data.daily[3].dt).tz(weather_data.timezone);
+    var dayFiveDate = moment.unix(weather_data.daily[4].dt).tz(weather_data.timezone);
+    var daySixDate = moment.unix(weather_data.daily[5].dt).tz(weather_data.timezone);
+    var daySevenDate = moment.unix(weather_data.daily[6].dt).tz(weather_data.timezone);
 
     res.render("index", {
       currentLocation: city,
 
-      time: date.toLocaleTimeString('en-US'),
-      date: date.toDateString(),
-      //timeZone: weather_data.timezone,
+      time: date.format('h:mm:ss'),
+      date: date.format('M-D-YYYY'),
 
-      todayDay: days[date.getDay()],
-      dayTwoDay: days[dayTwoDate.getDay()],
-      dayThreeDay: days[dayThreeDate.getDay()],
-      dayFourDay: days[dayFourDate.getDay()],
-      dayFiveDay: days[dayFiveDate.getDay()],
-      daySixDay: days[daySixDate.getDay()],
-      daySevenDay: days[daySevenDate.getDay()],
+      todayDay: days[date.day()],
+      dayTwoDay: days[dayTwoDate.day()],
+      dayThreeDay: days[dayThreeDate.day()],
+      dayFourDay: days[dayFourDate.day()],
+      dayFiveDay: days[dayFiveDate.day()],
+      daySixDay: days[daySixDate.day()],
+      daySevenDay: days[daySevenDate.day()],
 
-      todayDate: date.getDate(),
-      dayTwoDate: dayTwoDate.getDate(),
-      dayThreeDate: dayThreeDate.getDate(),
-      dayFourDate: dayFourDate.getDate(),
-      dayFiveDate: dayFiveDate.getDate(),
-      daySixDate: daySixDate.getDate(),
-      daySevenDate: daySevenDate.getDate(),
+      todayDate: date.format('D'),
+      dayTwoDate: dayTwoDate.format('D'),
+      dayThreeDate: dayThreeDate.format('D'),
+      dayFourDate: dayFourDate.format('D'),
+      dayFiveDate: dayFiveDate.format('D'),
+      daySixDate: daySixDate.format('D'),
+      daySevenDate: daySevenDate.format('D'),
 
       todayTemperature: weather_data.current.temp,
       dayTwoTemperature: weather_data.daily[1].temp.day,
