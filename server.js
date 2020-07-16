@@ -55,29 +55,8 @@ app.get("/", function(req, res){
       // console.log(weather_data.daily);
     }
 
-    // get day of week
-    // let timestamp = weather_data.daily[0].dt;
-    // let a = new Date(timestamp*1000);
     let days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
     let daysShort = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    // let dayNum = a.getDay();
-    // let dayArray = [];
-    // let currentDayOfWeek = days[dayNum]
-    // dayArray.push(currentDayOfWeek);
-    //
-    // for (let i = 1; i < 7; i++){
-    //   dayNum++;
-    //   dayNum %= 7;
-    //   dayArray.push(days[dayNum]);
-    // }
-
-    // var date = new Date(weather_data.current.dt*1000);
-    // var dayTwoDate = new Date(weather_data.daily[1].dt*1000);
-    // var dayThreeDate = new Date(weather_data.daily[2].dt*1000);
-    // var dayFourDate = new Date(weather_data.daily[3].dt*1000);
-    // var dayFiveDate = new Date(weather_data.daily[4].dt*1000);
-    // var daySixDate = new Date(weather_data.daily[5].dt*1000);
-    // var daySevenDate = new Date(weather_data.daily[6].dt*1000);
 
     var date = moment.unix(weather_data.current.dt).tz(weather_data.timezone);
     var dayTwoDate = moment.unix(weather_data.daily[1].dt).tz(weather_data.timezone);
