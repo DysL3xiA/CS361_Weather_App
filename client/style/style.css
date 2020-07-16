@@ -3,10 +3,88 @@ img {
 }
 
 .newBody {
-    max-width: 1000px;
+    max-width: 960px;
     margin: auto;
   }
 
 .newHeader, .timeZone, .weather, .disclaimer {
   text-align: center;
+}
+
+.weather-widget
+{
+    display: flex;
+    flex-flow: column wrap;
+    box-shadow: 0px 1px 10px 0px #cfcfcf;
+    overflow: hidden;
+}
+
+.weather-widget .current
+{
+    display: flex;
+    flex-flow: row wrap;
+    /* background-image: url("/Content/images/shared/misc/london-view.png"); */
+    background-repeat: repeat-x;
+    color: black;
+    padding: 20px;
+    text-shadow: 1px 1px #F68D2E;
+}
+
+.weather-widget .current .info
+{
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: space-around;
+    flex-grow: 2;
+}
+
+.weather-widget .current .info .city
+{
+    font-size: 26px;
+}
+
+.weather-widget .current .info .temp
+{
+    font-size: 56px;
+}
+
+.weather-widget .current .info .wind
+{
+    font-size: 24px;
+}
+
+.weather-widget .current .icon
+{
+    text-align: center;
+    font-size: 64px;
+    flex-grow: 1;
+}
+
+.weather-widget .future
+{
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.weather-widget .future .day
+{
+    flex-grow: 1;
+    text-align: center;
+    cursor: pointer;
+}
+
+.weather-widget .future .day:hover
+{
+    color: #fff;
+    background-color: #F68D2E;
+}
+
+.weather-widget .future .day h3
+{
+    text-transform: uppercase;
+}
+
+.weather-widget .future .day p
+{
+    font-size: 28px;
 }
