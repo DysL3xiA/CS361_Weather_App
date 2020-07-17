@@ -1,6 +1,12 @@
 <h3 class="newHeader"><br/><br/>7 Day Forecast</h3>
-<h5 class="newHeader"> {{currentLocation}} </h5>
-<div class="timeZone"> as of {{time}}, {{date}} {{timeZone}} <br/><br/></div>
+<!-- <h5 class="newHeader"> {{currentLocation}} </h5> -->
+<div class="timeZone"> as of {{time}}, {{date}}<br/><br/></div>
+
+<form class = "location" action="">
+  <label for="location"></label>
+  <input type="text" id="location" name="location" placeholder="Enter Zipcode or City">
+  <input class="btn btn-primary btn-sm" type="submit" value="Get Weather"><br><br>
+</form>
 
 <div class="container" style="padding-bottom: 25px;">
     <div class="row">
@@ -30,7 +36,7 @@
                     </div>
                     <div class="day">
                         <h3>{{dayThreeDayShort}}</h3>
-                        <p><img src="/img/{{dayTwoIcon}}.svg"></p>
+                        <p><img src="/img/{{dayThreeIcon}}.svg"></p>
                     </div>
                 </div>
             </div>
