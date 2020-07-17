@@ -2,14 +2,146 @@
 <h5 class="newHeader"> {{currentLocation}} </h5>
 <div class="timeZone"> as of {{time}}, {{date}} {{timeZone}} <br/><br/></div>
 
-<div class="weather">{{todayDay}} {{todayDate}} - {{todayTemperature}} ° - {{todayWind}} Wind Speed {{current_high_temp}} High Temperature {{current_low_temp}} Low Temperature <img src="/img/{{todayIcon}}.svg"></div>
+<div class="container" style="padding-bottom: 25px;">
+    <div class="row">
+        <div class="col-md-4 offset-md-4">
+            <div class="weather-widget">
+                <div class="current">
+                    <div class="info">
+                        <div>&nbsp;</div>
+                        <div class="city"><small><small>CITY:</small></small> {{currentLocation}}</div>
+                        <div class="temp">{{todayTemperature}}&deg; <small>F</small></div>
+                        <div class="wind"><small><small>WIND:</small></small> {{todayWind}}</div>
+                        <div>&nbsp;</div>
+                    </div>
+                    {{!-- add icon here for "current temp" --}}
+                    {{!-- <div class="main-icon">
+                        <img src="/img/{{todayIcon}}.svg">
+                    </div> --}}
+                </div>
+                <div class="future">
+                    <div class="day">
+                        <h3>{{todayDayShort}}</h3>
+                        <p><img src="/img/{{todayIcon}}.svg"></p>
+                    </div>
+                    <div class="day">
+                        <h3>{{dayTwoDayShort}}</h3>
+                        <p><img src="/img/{{dayTwoIcon}}.svg"></p>
+                    </div>
+                    <div class="day">
+                        <h3>{{dayThreeDayShort}}</h3>
+                        <p><img src="/img/{{dayTwoIcon}}.svg"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<div class="weather">{{dayTwoDay}} {{dayTwoDate}} - {{dayTwoTemperature}} ° - {{dayTwoWind}} Wind Speed {{dayTwo_high_temp}} High Temperature {{dayTwo_low_temp}} Low Temperature <img src="/img/{{dayTwoIcon}}.svg"></div>
-<div class="weather">{{dayThreeDay}} {{dayThreeDate}} - {{dayThreeTemperature}} ° - {{dayThreeWind}} Wind Speed {{dayThree_high_temp}} High Temperature {{dayThree_low_temp}} Low Temperature <img src="/img/{{dayThreeIcon}}.svg"></div>
-<div class="weather">{{dayFourDay}} {{dayFourDate}} - {{dayFourTemperature}} ° - {{dayFourWind}} Wind Speed {{dayFour_high_temp}} High Temperature {{dayFour_low_temp}} Low Temperature <img src="/img/{{dayFourIcon}}.svg"></div>
-<div class="weather">{{dayFiveDay}} {{dayFiveDate}} - {{dayFiveTemperature}} ° - {{dayFiveWind}} Wind Speed {{dayFive_high_temp}} High Temperature {{dayFive_low_temp}} Low Temperature <img src="/img/{{dayFiveIcon}}.svg"></div>
-<div class="weather">{{daySixDay}} {{daySixDate}} - {{daySixTemperature}} ° - {{daySixWind}} Wind Speed {{daySix_high_temp}} High Temperature {{daySix_low_temp}} Low Temperature <img src="/img/{{daySixIcon}}.svg"></div>
-<div class="weather">{{daySevenDay}} {{daySevenDate}} - {{daySevenTemperature}} ° - {{daySevenWind}} Wind Speed {{daySeven_high_temp}} High Temperature {{daySeven_low_temp}} Low Temperature <img src="/img/{{daySevenIcon}}.svg"></div>
+<div id="accordion">
+  <div class="card">
+    <div class="card-header" id="headingOne">
+      <h5 class="mb-0">
+        <button class="btn weather-btn" style="width: -webkit-fill-available" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          {{todayDay}} {{todayDate}}    {{current_high_temp}}° / {{current_low_temp}}°    <img src="/img/{{todayIcon}}.svg">
+        </button>
+      </h5>
+    </div>
 
+    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne">
+      <div class="card-body">
+        {{todayWind}} Wind Speed
+      </div>
+    </div>
+  </div>
 
-<div class="disclaimer"> <br/><br/><br/>Created by {{developer}} <br/>{{courseName}}</div>
+  <div class="card">
+    <div class="card-header" id="headingTwo">
+      <h5 class="mb-0">
+        <button class="btn collapsed weather-btn" style="width: -webkit-fill-available" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          {{dayTwoDay}} {{dayTwoDate}}      {{dayTwo_high_temp}}° / {{dayTwo_low_temp}}°  <img src="/img/{{dayTwoIcon}}.svg">
+        </button>
+      </h5>
+    </div>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo">
+      <div class="card-body">
+        {{dayTwoWind}} Wind Speed
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header" id="headingThree">
+      <h5 class="mb-0">
+        <button class="btn collapsed weather-btn" style="width: -webkit-fill-available" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          {{dayThreeDay}} {{dayThreeDate}}      {{dayThree_high_temp}}° / {{dayThree_low_temp}}°  <img src="/img/{{dayThreeIcon}}.svg">
+        </button>
+      </h5>
+    </div>
+    <div id="collapseThree" class="collapse" aria-labelledby="headingThree">
+      <div class="card-body">
+        {{dayThreeWind}} Wind Speed
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header" id="headingFour">
+      <h5 class="mb-0">
+        <button class="btn collapsed weather-btn" style="width: -webkit-fill-available" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+          {{dayFourDay}} {{dayFourDate}}      {{dayFour_high_temp}}° / {{dayFour_low_temp}}°  <img src="/img/{{dayFourIcon}}.svg">
+        </button>
+      </h5>
+    </div>
+    <div id="collapseFour" class="collapse" aria-labelledby="headingFour">
+      <div class="card-body">
+        {{dayFourWind}} Wind Speed
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header" id="headingFive">
+      <h5 class="mb-0">
+        <button class="btn collapsed weather-btn" style="width: -webkit-fill-available" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+          {{dayFiveDay}} {{dayFiveDate}}      {{dayFive_high_temp}}° / {{dayFive_low_temp}}°  <img src="/img/{{dayFiveIcon}}.svg">
+        </button>
+      </h5>
+    </div>
+    <div id="collapseFive" class="collapse" aria-labelledby="headingFive">
+      <div class="card-body">
+        {{dayFiveWind}} Wind Speed
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header" id="headingSix">
+      <h5 class="mb-0">
+        <button class="btn collapsed weather-btn" style="width: -webkit-fill-available" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+          {{daySixDay}} {{daySixDate}}      {{daySix_high_temp}}° / {{daySix_low_temp}}°  <img src="/img/{{daySixIcon}}.svg">
+        </button>
+      </h5>
+    </div>
+    <div id="collapseSix" class="collapse" aria-labelledby="headingSix">
+      <div class="card-body">
+        {{daySixWind}} Wind Speed
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header" id="headingSeven">
+      <h5 class="mb-0">
+        <button class="btn collapsed weather-btn" style="width: -webkit-fill-available" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+          {{daySevenDay}} {{daySevenDate}}      {{daySeven_high_temp}}° / {{daySeven_low_temp}}°  <img src="/img/{{daySevenIcon}}.svg">
+        </button>
+      </h5>
+    </div>
+    <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven">
+      <div class="card-body">
+        {{daySevenWind}} Wind Speed
+      </div>
+    </div>
+  </div>
+</div>

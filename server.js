@@ -55,28 +55,8 @@ app.get("/", function(req, res){
       // console.log(weather_data.daily);
     }
 
-    // get day of week
-    // let timestamp = weather_data.daily[0].dt;
-    // let a = new Date(timestamp*1000);
     let days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-    // let dayNum = a.getDay();
-    // let dayArray = [];
-    // let currentDayOfWeek = days[dayNum]
-    // dayArray.push(currentDayOfWeek);
-    //
-    // for (let i = 1; i < 7; i++){
-    //   dayNum++;
-    //   dayNum %= 7;
-    //   dayArray.push(days[dayNum]);
-    // }
-
-    // var date = new Date(weather_data.current.dt*1000);
-    // var dayTwoDate = new Date(weather_data.daily[1].dt*1000);
-    // var dayThreeDate = new Date(weather_data.daily[2].dt*1000);
-    // var dayFourDate = new Date(weather_data.daily[3].dt*1000);
-    // var dayFiveDate = new Date(weather_data.daily[4].dt*1000);
-    // var daySixDate = new Date(weather_data.daily[5].dt*1000);
-    // var daySevenDate = new Date(weather_data.daily[6].dt*1000);
+    let daysShort = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
     var date = moment.unix(weather_data.current.dt).tz(weather_data.timezone);
     var dayTwoDate = moment.unix(weather_data.daily[1].dt).tz(weather_data.timezone);
@@ -100,6 +80,10 @@ app.get("/", function(req, res){
       daySixDay: days[daySixDate.day()],
       daySevenDay: days[daySevenDate.day()],
 
+      todayDayShort: daysShort[date.day()],
+      dayTwoDayShort: daysShort[dayTwoDate.day()],
+      dayThreeDayShort: daysShort[dayThreeDate.day()],
+
       todayDate: date.format('D'),
       dayTwoDate: dayTwoDate.format('D'),
       dayThreeDate: dayThreeDate.format('D'),
@@ -108,7 +92,7 @@ app.get("/", function(req, res){
       daySixDate: daySixDate.format('D'),
       daySevenDate: daySevenDate.format('D'),
 
-      todayTemperature: weather_data.current.temp,
+      todayTemperature: Math.round(weather_data.current.temp),
       dayTwoTemperature: weather_data.daily[1].temp.day,
       dayThreeTemperature: weather_data.daily[2].temp.day,
       dayFourTemperature: weather_data.daily[3].temp.day,
@@ -116,20 +100,20 @@ app.get("/", function(req, res){
       daySixTemperature: weather_data.daily[5].temp.day,
       daySevenTemperature: weather_data.daily[6].temp.day,
 
-	current_high_temp: weather_data.daily[0].temp.max,
-	current_low_temp: weather_data.daily[0].temp.min,    
-	dayTwo_high_temp : weather_data.daily[1].temp.max,
-	dayTwo_low_temp: weather_data.daily[1].temp.min,
-	dayThree_high_temp: weather_data.daily[2].temp.max,
-	dayThree_low_temp: weather_data.daily[2].temp.min,
-	dayFour_high_temp: weather_data.daily[3].temp.max,
-	dayFour_low_temp: weather_data.daily[3].temp.min,
-	dayFive_high_temp: weather_data.daily[4].temp.max,
-	dayFive_low_temp: weather_data.daily[4].temp.min,
-	daySix_high_temp: weather_data.daily[5].temp.max,
-	daySix_low_temp: weather_data.daily[5].temp.min,
-	daySeven_high_temp: weather_data.daily[6].temp.max,
-	daySeven_low_temp: weather_data.daily[6].temp.min,
+	current_high_temp: Math.round(weather_data.daily[0].temp.max),
+	current_low_temp: Math.round(weather_data.daily[0].temp.min),    
+	dayTwo_high_temp : Math.round(weather_data.daily[1].temp.max),
+	dayTwo_low_temp: Math.round(weather_data.daily[1].temp.min),
+	dayThree_high_temp: Math.round(weather_data.daily[2].temp.max),
+	dayThree_low_temp: Math.round(weather_data.daily[2].temp.min),
+	dayFour_high_temp: Math.round(weather_data.daily[3].temp.max),
+	dayFour_low_temp: Math.round(weather_data.daily[3].temp.min),
+	dayFive_high_temp: Math.round(weather_data.daily[4].temp.max),
+	dayFive_low_temp: Math.round(weather_data.daily[4].temp.min),
+	daySix_high_temp: Math.round(weather_data.daily[5].temp.max),
+	daySix_low_temp: Math.round(weather_data.daily[5].temp.min),
+	daySeven_high_temp: Math.round(weather_data.daily[6].temp.max),
+	daySeven_low_temp: Math.round(weather_data.daily[6].temp.min),
 
       todayPrecipitation: '--%',
       dayTwoPrecipitation: '--%',
@@ -147,13 +131,13 @@ app.get("/", function(req, res){
       daySixHumidity: '--%',
       daySevenHumidity: '--%',
 
-      todayWind: weather_data.current.wind_speed + ((units == 'imperial') ? ' mph' : ' metres/sec'),
-      dayTwoWind: weather_data.daily[1].wind_speed + ((units == 'imperial') ? ' mph' : ' metres/sec'),
-      dayThreeWind: weather_data.daily[2].wind_speed + ((units == 'imperial') ? ' mph' : ' metres/sec'),
-      dayFourWind: weather_data.daily[3].wind_speed + ((units == 'imperial') ? ' mph' : ' metres/sec'),
-      dayFiveWind: weather_data.daily[4].wind_speed + ((units == 'imperial') ? ' mph' : ' metres/sec'),
-      daySixWind: weather_data.daily[5].wind_speed + ((units == 'imperial') ? ' mph' : ' metres/sec'),
-      daySevenWind: weather_data.daily[6].wind_speed + ((units == 'imperial') ? ' mph' : ' metres/sec'),
+      todayWind: Math.round(weather_data.current.wind_speed) + ((units == 'imperial') ? ' mph' : ' metres/sec'),
+      dayTwoWind: Math.round(weather_data.daily[1].wind_speed) + ((units == 'imperial') ? ' mph' : ' metres/sec'),
+      dayThreeWind: Math.round(weather_data.daily[2].wind_speed) + ((units == 'imperial') ? ' mph' : ' metres/sec'),
+      dayFourWind: Math.round(weather_data.daily[3].wind_speed) + ((units == 'imperial') ? ' mph' : ' metres/sec'),
+      dayFiveWind: Math.round(weather_data.daily[4].wind_speed) + ((units == 'imperial') ? ' mph' : ' metres/sec'),
+      daySixWind: Math.round(weather_data.daily[5].wind_speed) + ((units == 'imperial') ? ' mph' : ' metres/sec'),
+      daySevenWind: Math.round(weather_data.daily[6].wind_speed) + ((units == 'imperial') ? ' mph' : ' metres/sec'),
 
       todayIcon: weather_data.current.weather[0].icon,
       dayTwoIcon: weather_data.daily[1].weather[0].icon,
