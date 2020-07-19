@@ -123,13 +123,7 @@ app.get("/", function(req, res){
       daySixPrecipitation: '--%',
       daySevenPrecipitation: '--%',
 
-      todayHumidity: '--%',
-      dayTwoHumidity: '--%',
-      dayThreeHumidity: '--%',
-      dayFourHumidity: '--%',
-      dayFiveHumidity: '--%',
-      daySixHumidity: '--%',
-      daySevenHumidity: '--%',
+	todayHumidity: weather_data.current.humidity,
 
       todayWind: Math.round(weather_data.current.wind_speed) + ((units == 'imperial') ? ' mph' : ' metres/sec'),
       dayTwoWind: Math.round(weather_data.daily[1].wind_speed) + ((units == 'imperial') ? ' mph' : ' metres/sec'),
