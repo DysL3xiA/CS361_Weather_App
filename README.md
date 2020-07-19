@@ -1,4 +1,7 @@
 # CS361_Weather_App
+
+Weather app hosted via Heroku: https://weather-avengers-app.herokuapp.com/ 
+
 This is a Weather App we are building for CS 361
 
 This is a test edit by Alexis. Number 2.
