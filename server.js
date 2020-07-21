@@ -30,6 +30,15 @@ app.set('view engine', 'handlebars');
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
+//search history array
+var search = new Array(" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ");
+//most recent search string
+currentSearch = "Portland, OR";
+previousSearch = ""
+search.unshift(currentSearch); //add to the front of the search history array
+search.pop() // remove the last item of the search history array to maintain length
+
+
 /*******************************************
  * handle: for homepage load
  *
@@ -148,8 +157,28 @@ app.get("/", function(req, res){
       daySevenIcon: weather_data.daily[6].weather[0].icon,
 
       developer: 'Weather Avengers',
-      courseName: 'CS 361 - Summer 2020'
+      courseName: 'CS 361 - Summer 2020',
+      search: search, // Search History
+      currentSearch: currentSearch
 
     });
   });
+
+    //Add currentSearch to Search History array. Remove last item in array to maintain length. Store previous search for invalid search case.
+    //Redirect to "/". Triggered by 'Get Weather' button.
+    app.post("/searchhistory", function(req,res){
+    var newSearch = req.body.location;
+    search.unshift(newSearch);
+    search.pop()
+    previousSearch = currentSearch
+    currentSearch = req.body.location;
+    res.redirect("/");
+    });
+
+    //Clear Search History array and redirect to "/". Triggered by 'Clear History' button.
+    app.post("/clearhistory", function(req,res){
+    search = new Array(" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ");
+    res.redirect("/");
+    });
+
 });

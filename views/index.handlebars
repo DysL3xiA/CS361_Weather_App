@@ -1,8 +1,12 @@
 <h3 class="newHeader"><br/><br/>7 Day Forecast</h3>
 <!-- <h5 class="newHeader"> {{currentLocation}} </h5> -->
 <div class="timeZone"> as of {{time}}, {{date}}<br/><br/></div>
+<!-- Added for Testing City/Zip search. Displays most recent search string on the UI -->
+<div>(Testing) Display the Weather For: {{currentSearch}}</div> 
 
-<form class = "location" action="">
+{{!-- /searchhistory POST action pushes the 'location' string onto the search array, 
+stores the search string in a variable currentSearch, and redirects to "/" in server.js --}}
+<form class = "location" action="/searchhistory" method="POST">
   <label for="location"></label>
   <input type="text" id="location" name="location" placeholder="Enter Zipcode or City">
   <input class="btn btn-primary btn-sm" type="submit" value="Get Weather"><br><br>
@@ -41,6 +45,20 @@
                     </div>
                 </div>
             </div>
+        </div>
+         {{!-- Initial code for search history display. #each loops through the 'search' array.
+         /clearhistory POST action clears 'search' array and and redirects to "/". --}}
+        <div class="col-md-4">
+          <div class="search-history">
+            <p>Search History:</p>
+            <br>
+            {{#each search}}       
+      	    {{.}}<br>
+            {{/each}}
+            </div>
+            <form id="clearsearchhistory" action="/clearhistory" method="POST">
+              <button>Clear History</button>
+            </form>
         </div>
     </div>
 </div>
