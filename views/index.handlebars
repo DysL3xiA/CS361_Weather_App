@@ -1,12 +1,10 @@
 <h3 class="newHeader"><br/><br/>7 Day Forecast</h3>
 <!-- <h5 class="newHeader"> {{currentLocation}} </h5> -->
 <div class="timeZone"> as of {{time}}, {{date}}<br/><br/></div>
-<!-- Added for Testing City/Zip search. Displays most recent search string on the UI -->
-<div>(Testing) Display the Weather For: {{currentSearch}}</div> 
 
 {{!-- /searchhistory POST action pushes the 'location' string onto the search array, 
 stores the search string in a variable currentSearch, and redirects to "/" in server.js --}}
-<form class = "location" action="/searchhistory" method="POST">
+<form class = "location" action="/newSearch" method="GET">
   <label for="location"></label>
   <input type="text" id="location" name="location" placeholder="Enter Zipcode or City">
   <input class="btn btn-primary btn-sm" type="submit" value="Get Weather"><br><br>
@@ -22,7 +20,7 @@ stores the search string in a variable currentSearch, and redirects to "/" in se
                         <div class="city"><small><small>CITY:</small></small> {{currentLocation}}</div>
                         <div class="temp">{{todayTemperature}}&deg; <small>F</small></div>
                         <div class="wind"><small><small>WIND:</small></small> {{todayWind}}</div>
-                        <div class="humidity"><small><small>Humidity:</small></small> {{todayHumidity}}%</div>
+                        <div class="humidity"><small><small>HUMIDITY:</small></small> {{todayHumidity}}%</div>
                         <div>&nbsp;</div>
                     </div>
                     {{!-- add icon here for "current temp" --}}
