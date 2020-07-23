@@ -4,9 +4,9 @@
 <!-- Added for Testing City/Zip search. Displays most recent search string on the UI -->
 <div>(Testing) Display the Weather For: {{currentSearch}}</div> 
 
-{{!-- /searchhistory POST action pushes the 'location' string onto the search array, 
+{{!-- /newsearch POST action pushes the 'location' string onto the search array, 
 stores the search string in a variable currentSearch, and redirects to "/" in server.js --}}
-<form class = "location" action="/searchhistory" method="POST">
+<form class = "location" action="/newsearch" method="POST">
   <label for="location"></label>
   <input type="text" id="location" name="location" placeholder="Enter Zipcode or City">
   <input class="btn btn-primary btn-sm" type="submit" value="Get Weather"><br><br>

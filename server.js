@@ -32,11 +32,9 @@ app.listen(port, () => console.log(`Listening on port ${port}`));
 
 //search history array
 var search = new Array(" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ");
-//most recent search string
-currentSearch = "Portland, OR";
-previousSearch = ""
-search.unshift(currentSearch); //add to the front of the search history array
-search.pop() // remove the last item of the search history array to maintain length
+prevousSearch = 0;
+currentSearch = 0;
+
 
 
 /*******************************************
@@ -47,8 +45,29 @@ search.pop() // remove the last item of the search history array to maintain len
  * returns: renders index page
  ********************************************/
 
-app.get("/", function(req, res){
-  var weather_data;
+// Home Page. Set Search to User's Location
+app.get("/", function(req,res){
+      previousSearch = currentSearch
+      currentSearch = "Portland, OR" // User's Location - Update to IP Location.
+      res.redirect("/weather");
+      });
+  
+//Clear Search History. Redirect to Home Page to set User's Location. Triggered by 'Clear History' button.
+app.post("/clearhistory", function(req,res){
+      search = new Array(" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ");
+      res.redirect("/");
+      });
+
+//Explicit Search. Triggered by 'Get Weather' button.
+app.post("/newsearch", function(req,res){
+      previousSearch = currentSearch
+      currentSearch = req.body.location;
+      res.redirect("/weather");
+      });
+
+//Main Route - Render Weather Information
+app.get("/weather", function(req, res){
+  var weather_data; // Replace this code with something that converts currentSearch into lat / long and uniquely queries the weathermap.
   let apiKey = '364c1375ab235fcd9a6e5c2a537733e6';
   let city = 'Portland, OR';
   let lat = 45.5202;
@@ -62,6 +81,8 @@ app.get("/", function(req, res){
     else {
       weather_data = JSON.parse(body)
       // console.log(weather_data.daily);
+      search.unshift(currentSearch);
+      search.pop()
     }
 
     let days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
@@ -164,21 +185,5 @@ app.get("/", function(req, res){
     });
   });
 
-    //Add currentSearch to Search History array. Remove last item in array to maintain length. Store previous search for invalid search case.
-    //Redirect to "/". Triggered by 'Get Weather' button.
-    app.post("/searchhistory", function(req,res){
-    var newSearch = req.body.location;
-    search.unshift(newSearch);
-    search.pop()
-    previousSearch = currentSearch
-    currentSearch = req.body.location;
-    res.redirect("/");
-    });
-
-    //Clear Search History array and redirect to "/". Triggered by 'Clear History' button.
-    app.post("/clearhistory", function(req,res){
-    search = new Array(" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ");
-    res.redirect("/");
-    });
 
 });
