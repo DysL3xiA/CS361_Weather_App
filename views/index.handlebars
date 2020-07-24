@@ -14,7 +14,17 @@ stores the search string in a variable currentSearch, and redirects to "/" in se
 
 <div class="container" style="padding-bottom: 25px;">
     <div class="row">
-        <div class="col-md-4 offset-md-4">
+      <div class="col">
+          <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <label class="btn btn-secondary metric-button active">
+              <input type="radio" name="options" id="option1" autocomplete="off" checked> Farenheit
+            </label>
+            <label class="btn btn-secondary metric-button">
+              <input type="radio" name="options" id="option2" autocomplete="off"> Celsius
+            </label>
+          </div>
+      </div>
+        <div class="col">
             <div class="weather-widget">
                 <div class="current">
                     <div class="info">
@@ -48,7 +58,7 @@ stores the search string in a variable currentSearch, and redirects to "/" in se
         </div>
          {{!-- Initial code for search history display. #each loops through the 'search' array.
          /clearhistory POST action clears 'search' array and and redirects to "/". --}}
-        <div class="col-md-4">
+        <div class="col">
           <div class="search-history">
             <p>Search History:</p>
             <br>
