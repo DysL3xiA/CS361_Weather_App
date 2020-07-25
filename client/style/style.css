@@ -32,7 +32,7 @@ img {
     background-repeat: repeat-x;
     color: black;
     padding: 20px;
-    text-shadow: 1px 1px #F68D2E;
+    /* text-shadow: 1px 1px #F68D2E; */
 }
 
 .weather-widget .current .info
