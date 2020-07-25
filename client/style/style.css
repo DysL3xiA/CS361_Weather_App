@@ -11,6 +11,11 @@ img {
   text-align: center;
 }
 
+.metric-button.active
+{
+    background-color: #007bff !important;
+}
+
 .weather-widget
 {
     display: flex;
