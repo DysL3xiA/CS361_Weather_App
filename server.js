@@ -30,10 +30,15 @@ app.set('view engine', 'handlebars');
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
+var location_data;
+let city;
+let lat;
+let lon;
+
 //search history array
 var search = new Array(" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ");
-prevousSearch = 0;
-currentSearch = 0;
+let previousSearch;
+let currentSearch;
 
 
 
@@ -47,42 +52,68 @@ currentSearch = 0;
 
 // Home Page. Set Search to User's Location
 app.get("/", function(req,res){
-      previousSearch = currentSearch
-      currentSearch = "Portland, OR" // User's Location - Update to IP Location.
+      previousSearch = currentSearch;
+      currentSearch = "Portland, OR"; // User's Location - Update to IP Location.
       res.redirect("/weather");
-      });
-  
+});
+
 //Clear Search History. Redirect to Home Page to set User's Location. Triggered by 'Clear History' button.
 app.post("/clearhistory", function(req,res){
       search = new Array(" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ");
       res.redirect("/");
-      });
+});
 
 //Explicit Search. Triggered by 'Get Weather' button.
 app.post("/newsearch", function(req,res){
-      previousSearch = currentSearch
-      currentSearch = req.body.location;
-      res.redirect("/weather");
-      });
-
-//Main Route - Render Weather Information
-app.get("/weather", function(req, res){
-  var weather_data; // Replace this code with something that converts currentSearch into lat / long and uniquely queries the weathermap.
-  let apiKey = '364c1375ab235fcd9a6e5c2a537733e6';
-  let city = 'Portland, OR';
-  let lat = 45.5202;
-  let lon = -122.676483;
-  let units = 'imperial'
-  let url = `http://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=${units}&appid=${apiKey}`;
+  previousSearch = currentSearch;
+  currentSearch = req.body.location;
+  let googleApiKey = 'AIzaSyBBPH7E-1UWMVO13QgYk3kVfYYpqqM-oLQ';
+  let url = `https://maps.googleapis.com/maps/api/geocode/json?address=${currentSearch}&key=${googleApiKey}`;
   request(url, function (err, response, body) {
     if(err){
       console.log('error:', error);
     }
     else {
-      weather_data = JSON.parse(body)
-      // console.log(weather_data.daily);
+      location_data = JSON.parse(body);
+      console.log(location_data.results[0]);
+      console.log(location_data);
+    }
+    res.redirect("/weather");
+  });
+});
+
+//Main Route - Render Weather Information
+app.get("/weather", function(req, res){
+  var weather_data; // Replace this code with something that converts currentSearch into lat / long and uniquely queries the weathermap.
+  let apiKey = '364c1375ab235fcd9a6e5c2a537733e6';
+  if (location_data){
+    if (location_data.status == 'OK') {
+      city = location_data.results[0].formatted_address;
+      lat = location_data.results[0].geometry.location.lat;
+      lon = location_data.results[0].geometry.location.lng;
       search.unshift(currentSearch);
-      search.pop()
+      search.pop();
+    }
+    else {
+      city = 'Portland, OR';
+      lat = 45.523064;
+      lon = -122.676483;
+    }
+  }
+  else {
+    city = 'Portland, OR';
+    lat = 45.523064;
+    lon = -122.676483;
+  }
+  let units = 'imperial';
+  let url = `http://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=${units}&appid=${apiKey}`;
+  request(url, function (err, response, body){
+    if(err){
+      console.log('error:', error);
+    }
+    else {
+      weather_data = JSON.parse(body);
+      // console.log(weather_data.daily);
     }
 
     let days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
@@ -153,8 +184,8 @@ app.get("/weather", function(req, res){
       daySixPrecipitation: '--%',
       daySevenPrecipitation: '--%',
 
-	  todayHumidity: weather_data.current.humidity,
-	  dayTwoHumidity: weather_data.daily[1].humidity,
+	    todayHumidity: weather_data.current.humidity,
+	    dayTwoHumidity: weather_data.daily[1].humidity,
       dayThreeHumidity: weather_data.daily[2].humidity,
       dayFourHumidity: weather_data.daily[3].humidity,
       dayFiveHumidity: weather_data.daily[4].humidity,
@@ -181,9 +212,6 @@ app.get("/weather", function(req, res){
       courseName: 'CS 361 - Summer 2020',
       search: search, // Search History
       currentSearch: currentSearch
-
     });
   });
-
-
 });
