@@ -34,6 +34,7 @@ var location_data;
 let city;
 let lat;
 let lon;
+let units = 'imperial';
 
 //search history array
 var search = new Array(" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ");
@@ -52,8 +53,8 @@ let currentSearch;
 
 // Home Page. Set Search to User's Location
 app.get("/", function(req,res){
-      previousSearch = currentSearch;
-      currentSearch = "Portland, OR"; // User's Location - Update to IP Location.
+      // previousSearch = currentSearch;
+      // currentSearch = "Portland, OR"; // User's Location - Update to IP Location.
       res.redirect("/weather");
 });
 
@@ -77,9 +78,18 @@ app.post("/newsearch", function(req,res){
       location_data = JSON.parse(body);
       console.log(location_data.results[0]);
       console.log(location_data);
+      if (location_data.status == 'OK'){
+        search.unshift(currentSearch);
+        search.pop();
+      }
     }
     res.redirect("/weather");
   });
+});
+
+app.post("/changeMetric", function(req,res){
+  units = req.query.metric;
+  res.send(null);
 });
 
 //Main Route - Render Weather Information
@@ -91,8 +101,6 @@ app.get("/weather", function(req, res){
       city = location_data.results[0].formatted_address;
       lat = location_data.results[0].geometry.location.lat;
       lon = location_data.results[0].geometry.location.lng;
-      search.unshift(currentSearch);
-      search.pop();
     }
     else {
       city = 'Portland, OR';
@@ -105,7 +113,6 @@ app.get("/weather", function(req, res){
     lat = 45.523064;
     lon = -122.676483;
   }
-  let units = 'imperial';
   let url = `http://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=${units}&appid=${apiKey}`;
   request(url, function (err, response, body){
     if(err){
@@ -153,28 +160,28 @@ app.get("/weather", function(req, res){
       daySixDate: daySixDate.format('D'),
       daySevenDate: daySevenDate.format('D'),
 
-      todayTemperature: Math.round(weather_data.current.temp),
-      dayTwoTemperature: weather_data.daily[1].temp.day,
-      dayThreeTemperature: weather_data.daily[2].temp.day,
-      dayFourTemperature: weather_data.daily[3].temp.day,
-      dayFiveTemperature: weather_data.daily[4].temp.day,
-      daySixTemperature: weather_data.daily[5].temp.day,
-      daySevenTemperature: weather_data.daily[6].temp.day,
+      todayTemperature: Math.round(weather_data.current.temp) + '°' + ((units == 'imperial') ? ' F' : ' C'),
+      dayTwoTemperature: weather_data.daily[1].temp.day + '°' + ((units == 'imperial') ? ' F' : ' C'),
+      dayThreeTemperature: weather_data.daily[2].temp.day + '°' + ((units == 'imperial') ? ' F' : ' C'),
+      dayFourTemperature: weather_data.daily[3].temp.day + '°' + ((units == 'imperial') ? ' F' : ' C'),
+      dayFiveTemperature: weather_data.daily[4].temp.day + '°' + ((units == 'imperial') ? ' F' : ' C'),
+      daySixTemperature: weather_data.daily[5].temp.day + '°' + ((units == 'imperial') ? ' F' : ' C'),
+      daySevenTemperature: weather_data.daily[6].temp.day + '°' + ((units == 'imperial') ? ' F' : ' C'),
 
-    	current_high_temp: Math.round(weather_data.daily[0].temp.max),
-    	current_low_temp: Math.round(weather_data.daily[0].temp.min),
-    	dayTwo_high_temp : Math.round(weather_data.daily[1].temp.max),
-    	dayTwo_low_temp: Math.round(weather_data.daily[1].temp.min),
-    	dayThree_high_temp: Math.round(weather_data.daily[2].temp.max),
-    	dayThree_low_temp: Math.round(weather_data.daily[2].temp.min),
-    	dayFour_high_temp: Math.round(weather_data.daily[3].temp.max),
-    	dayFour_low_temp: Math.round(weather_data.daily[3].temp.min),
-    	dayFive_high_temp: Math.round(weather_data.daily[4].temp.max),
-    	dayFive_low_temp: Math.round(weather_data.daily[4].temp.min),
-    	daySix_high_temp: Math.round(weather_data.daily[5].temp.max),
-    	daySix_low_temp: Math.round(weather_data.daily[5].temp.min),
-    	daySeven_high_temp: Math.round(weather_data.daily[6].temp.max),
-    	daySeven_low_temp: Math.round(weather_data.daily[6].temp.min),
+    	current_high_temp: Math.round(weather_data.daily[0].temp.max) + '°' + ((units == 'imperial') ? ' F' : ' C'),
+    	current_low_temp: Math.round(weather_data.daily[0].temp.min) + '°' + ((units == 'imperial') ? ' F' : ' C'),
+    	dayTwo_high_temp : Math.round(weather_data.daily[1].temp.max) + '°' + ((units == 'imperial') ? ' F' : ' C'),
+    	dayTwo_low_temp: Math.round(weather_data.daily[1].temp.min) + '°' + ((units == 'imperial') ? ' F' : ' C'),
+    	dayThree_high_temp: Math.round(weather_data.daily[2].temp.max) + '°' + ((units == 'imperial') ? ' F' : ' C'),
+    	dayThree_low_temp: Math.round(weather_data.daily[2].temp.min) + '°' + ((units == 'imperial') ? ' F' : ' C'),
+    	dayFour_high_temp: Math.round(weather_data.daily[3].temp.max) + '°' + ((units == 'imperial') ? ' F' : ' C'),
+    	dayFour_low_temp: Math.round(weather_data.daily[3].temp.min) + '°' + ((units == 'imperial') ? ' F' : ' C'),
+    	dayFive_high_temp: Math.round(weather_data.daily[4].temp.max) + '°' + ((units == 'imperial') ? ' F' : ' C'),
+    	dayFive_low_temp: Math.round(weather_data.daily[4].temp.min) + '°' + ((units == 'imperial') ? ' F' : ' C'),
+    	daySix_high_temp: Math.round(weather_data.daily[5].temp.max) + '°' + ((units == 'imperial') ? ' F' : ' C'),
+    	daySix_low_temp: Math.round(weather_data.daily[5].temp.min) + '°' + ((units == 'imperial') ? ' F' : ' C'),
+    	daySeven_high_temp: Math.round(weather_data.daily[6].temp.max) + '°' + ((units == 'imperial') ? ' F' : ' C'),
+    	daySeven_low_temp: Math.round(weather_data.daily[6].temp.min) + '°' + ((units == 'imperial') ? ' F' : ' C'),
 
       todayPrecipitation: '--%',
       dayTwoPrecipitation: '--%',

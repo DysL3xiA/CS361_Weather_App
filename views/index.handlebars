@@ -14,15 +14,7 @@ stores the search string in a variable currentSearch, and redirects to "/" in se
 
 <div class="container" style="padding-bottom: 25px;">
     <div class="row">
-      <div class="col">
-          <div class="btn-group btn-group-toggle" data-toggle="buttons">
-            <label class="btn btn-secondary metric-button active">
-              <input type="radio" name="options" id="option1" autocomplete="off" checked> Farenheit
-            </label>
-            <label class="btn btn-secondary metric-button">
-              <input type="radio" name="options" id="option2" autocomplete="off"> Celsius
-            </label>
-          </div>
+      <div class="col radio-col">
       </div>
         <div class="col">
             <div class="weather-widget">
@@ -30,7 +22,7 @@ stores the search string in a variable currentSearch, and redirects to "/" in se
                     <div class="info">
                         <div>&nbsp;</div>
                         <div class="city"><small><small>CITY:</small></small> {{currentLocation}}</div>
-                        <div class="temp">{{todayTemperature}}&deg; <small>F</small></div>
+                        <div class="temp">{{todayTemperature}} <small></small></div>
                         <div class="wind"><small><small>WIND:</small></small> {{todayWind}}</div>
                         <div class="humidity"><small><small>Humidity:</small></small> {{todayHumidity}}%</div>
                         <div>&nbsp;</div>
@@ -78,7 +70,7 @@ stores the search string in a variable currentSearch, and redirects to "/" in se
     <div class="card-header" id="headingOne">
       <h5 class="mb-0">
         <button class="btn weather-btn" style="width: -webkit-fill-available" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-          {{todayDay}} {{todayDate}}    {{current_high_temp}}° / {{current_low_temp}}°    <img src="/img/{{todayIcon}}.svg">
+          {{todayDay}} {{todayDate}}    {{current_high_temp}} / {{current_low_temp}}    <img src="/img/{{todayIcon}}.svg">
         </button>
       </h5>
     </div>
@@ -95,7 +87,7 @@ stores the search string in a variable currentSearch, and redirects to "/" in se
     <div class="card-header" id="headingTwo">
       <h5 class="mb-0">
         <button class="btn collapsed weather-btn" style="width: -webkit-fill-available" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-          {{dayTwoDay}} {{dayTwoDate}}      {{dayTwo_high_temp}}° / {{dayTwo_low_temp}}°  <img src="/img/{{dayTwoIcon}}.svg">
+          {{dayTwoDay}} {{dayTwoDate}}      {{dayTwo_high_temp}} / {{dayTwo_low_temp}}  <img src="/img/{{dayTwoIcon}}.svg">
         </button>
       </h5>
     </div>
@@ -111,7 +103,7 @@ stores the search string in a variable currentSearch, and redirects to "/" in se
     <div class="card-header" id="headingThree">
       <h5 class="mb-0">
         <button class="btn collapsed weather-btn" style="width: -webkit-fill-available" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-          {{dayThreeDay}} {{dayThreeDate}}      {{dayThree_high_temp}}° / {{dayThree_low_temp}}°  <img src="/img/{{dayThreeIcon}}.svg">
+          {{dayThreeDay}} {{dayThreeDate}}      {{dayThree_high_temp}} / {{dayThree_low_temp}}  <img src="/img/{{dayThreeIcon}}.svg">
         </button>
       </h5>
     </div>
@@ -127,7 +119,7 @@ stores the search string in a variable currentSearch, and redirects to "/" in se
     <div class="card-header" id="headingFour">
       <h5 class="mb-0">
         <button class="btn collapsed weather-btn" style="width: -webkit-fill-available" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-          {{dayFourDay}} {{dayFourDate}}      {{dayFour_high_temp}}° / {{dayFour_low_temp}}°  <img src="/img/{{dayFourIcon}}.svg">
+          {{dayFourDay}} {{dayFourDate}}      {{dayFour_high_temp}} / {{dayFour_low_temp}}  <img src="/img/{{dayFourIcon}}.svg">
         </button>
       </h5>
     </div>
@@ -143,7 +135,7 @@ stores the search string in a variable currentSearch, and redirects to "/" in se
     <div class="card-header" id="headingFive">
       <h5 class="mb-0">
         <button class="btn collapsed weather-btn" style="width: -webkit-fill-available" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-          {{dayFiveDay}} {{dayFiveDate}}      {{dayFive_high_temp}}° / {{dayFive_low_temp}}°  <img src="/img/{{dayFiveIcon}}.svg">
+          {{dayFiveDay}} {{dayFiveDate}}      {{dayFive_high_temp}} / {{dayFive_low_temp}}  <img src="/img/{{dayFiveIcon}}.svg">
         </button>
       </h5>
     </div>
@@ -159,7 +151,7 @@ stores the search string in a variable currentSearch, and redirects to "/" in se
     <div class="card-header" id="headingSix">
       <h5 class="mb-0">
         <button class="btn collapsed weather-btn" style="width: -webkit-fill-available" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-          {{daySixDay}} {{daySixDate}}      {{daySix_high_temp}}° / {{daySix_low_temp}}°  <img src="/img/{{daySixIcon}}.svg">
+          {{daySixDay}} {{daySixDate}}      {{daySix_high_temp}} / {{daySix_low_temp}}  <img src="/img/{{daySixIcon}}.svg">
         </button>
       </h5>
     </div>
@@ -175,7 +167,7 @@ stores the search string in a variable currentSearch, and redirects to "/" in se
     <div class="card-header" id="headingSeven">
       <h5 class="mb-0">
         <button class="btn collapsed weather-btn" style="width: -webkit-fill-available" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
-          {{daySevenDay}} {{daySevenDate}}      {{daySeven_high_temp}}° / {{daySeven_low_temp}}°  <img src="/img/{{daySevenIcon}}.svg">
+          {{daySevenDay}} {{daySevenDate}}      {{daySeven_high_temp}} / {{daySeven_low_temp}}  <img src="/img/{{daySevenIcon}}.svg">
         </button>
       </h5>
     </div>
