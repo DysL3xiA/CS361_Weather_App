@@ -53,8 +53,8 @@ let currentSearch;
 
 // Home Page. Set Search to User's Location
 app.get("/", function(req,res){
-      previousSearch = currentSearch;
-      currentSearch = "Portland, OR"; // User's Location - Update to IP Location.
+      // previousSearch = currentSearch;
+      // currentSearch = "Portland, OR"; // User's Location - Update to IP Location.
       res.redirect("/weather");
 });
 
@@ -78,6 +78,10 @@ app.post("/newsearch", function(req,res){
       location_data = JSON.parse(body);
       console.log(location_data.results[0]);
       console.log(location_data);
+      if (location_data.status == 'OK'){
+        search.unshift(currentSearch);
+        search.pop();
+      }
     }
     res.redirect("/weather");
   });
@@ -97,8 +101,6 @@ app.get("/weather", function(req, res){
       city = location_data.results[0].formatted_address;
       lat = location_data.results[0].geometry.location.lat;
       lon = location_data.results[0].geometry.location.lng;
-      search.unshift(currentSearch);
-      search.pop();
     }
     else {
       city = 'Portland, OR';
