@@ -183,6 +183,15 @@ app.get("/weather", function(req, res){
     	daySeven_high_temp: Math.round(weather_data.daily[6].temp.max) + '°' + ((units == 'imperial') ? ' F' : ' C'),
     	daySeven_low_temp: Math.round(weather_data.daily[6].temp.min) + '°' + ((units == 'imperial') ? ' F' : ' C'),
 
+      
+	    today_pressure: weather_data.current.pressure,
+	    dayTwo_pressure: weather_data.daily[1].pressure,
+	    dayThree_pressure: weather_data.daily[2].pressure,
+	    dayFour_pressure: weather_data.daily[3].pressure,
+	    dayFive_pressure: weather_data.daily[4].pressure,
+	    daySix_pressure: weather_data.daily[5].pressure,
+	    daySeven_pressure: weather_data.daily[6].pressure,
+		
       todayPrecipitation: '--%',
       dayTwoPrecipitation: '--%',
       dayThreePrecipitation: '--%',
