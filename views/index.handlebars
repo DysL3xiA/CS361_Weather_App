@@ -4,8 +4,6 @@
 <!-- Added for Testing City/Zip search. Displays most recent search string on the UI -->
 <div>(Testing) Display the Weather For: {{currentSearch}}</div> 
 
-{{!-- /newsearch POST action pushes the 'location' string onto the search array, 
-stores the search string in a variable currentSearch, and redirects to "/" in server.js --}}
 <form class = "location" action="/newsearch" method="POST">
   <label for="location"></label>
   <input type="text" id="location" name="location" placeholder="Enter Zipcode or City">
@@ -28,10 +26,6 @@ stores the search string in a variable currentSearch, and redirects to "/" in se
                         <div class="pressure"><small><small>PRESSURE:</small></small>{{today_pressure}} <small>Pa</small></div>
 			<div>&nbsp;</div>
                     </div>
-                    {{!-- add icon here for "current temp" --}}
-                    {{!-- <div class="main-icon">
-                        <img src="/img/{{todayIcon}}.svg">
-                    </div> --}}
                 </div>
                 <div class="future">
                     <div class="day">
