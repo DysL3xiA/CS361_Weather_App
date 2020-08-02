@@ -10,7 +10,7 @@
  ******************************************************************************/
 
 var express = require('express');
-var request = require('request');
+ var request = require('request');
 
 var app = express();
 var bodyParser = require('body-parser');
@@ -39,7 +39,7 @@ let units = 'imperial';
 //search history array
 var search = new Array(" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ");
 let previousSearch;
-let currentSearch;
+ let currentSearch;
 
 
 
@@ -69,7 +69,7 @@ app.post("/newsearch", function(req,res){
   previousSearch = currentSearch;
   currentSearch = req.body.location;
   let googleApiKey = 'AIzaSyBBPH7E-1UWMVO13QgYk3kVfYYpqqM-oLQ';
-  let url = `https://maps.googleapis.com/maps/api/geocode/json?address=${currentSearch}&key=${googleApiKey}`;
+   let url = `https://maps.googleapis.com/maps/api/geocode/json?address=${currentSearch}&key=${googleApiKey}`;
   request(url, function (err, response, body) {
     if(err){
       console.log('error:', error);
@@ -87,38 +87,45 @@ app.post("/newsearch", function(req,res){
   });
 });
 
-app.post("/changeMetric", function(req,res){
+app.post("/changeMetric", function(req,res)
+{
   units = req.query.metric;
   res.send(null);
 });
 
 //Main Route - Render Weather Information
-app.get("/weather", function(req, res){
+app.get("/weather", function(req, res)
+{
   var weather_data; // Replace this code with something that converts currentSearch into lat / long and uniquely queries the weathermap.
   let apiKey = '364c1375ab235fcd9a6e5c2a537733e6';
   if (location_data){
-    if (location_data.status == 'OK') {
+    if (location_data.status == 'OK') 
+    {
       city = location_data.results[0].formatted_address;
       lat = location_data.results[0].geometry.location.lat;
       lon = location_data.results[0].geometry.location.lng;
     }
-    else {
+    else 
+    {
       city = 'Portland, OR';
       lat = 45.523064;
       lon = -122.676483;
     }
   }
-  else {
+  else 
+  {
     city = 'Portland, OR';
     lat = 45.523064;
     lon = -122.676483;
   }
   let url = `http://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=${units}&appid=${apiKey}`;
   request(url, function (err, response, body){
-    if(err){
-      console.log('error:', error);
+    if(err)
+    {
+       console.log('error:', error);
     }
-    else {
+    else 
+    {
       weather_data = JSON.parse(body);
       // console.log(weather_data.daily);
     }
@@ -191,17 +198,11 @@ app.get("/weather", function(req, res){
 	    dayFive_pressure: weather_data.daily[4].pressure,
 	    daySix_pressure: weather_data.daily[5].pressure,
 	    daySeven_pressure: weather_data.daily[6].pressure,
-		
-      todayPrecipitation: '--%',
-      dayTwoPrecipitation: '--%',
-      dayThreePrecipitation: '--%',
-      dayFourPrecipitation: '--%',
-      dayFivePrecipitation: '--%',
-      daySixPrecipitation: '--%',
-      daySevenPrecipitation: '--%',
 
-	    todayHumidity: weather_data.current.humidity,
-	    dayTwoHumidity: weather_data.daily[1].humidity,
+      //removed precipitation (old code)
+
+	     todayHumidity: weather_data.current.humidity,
+	     dayTwoHumidity: weather_data.daily[1].humidity,
       dayThreeHumidity: weather_data.daily[2].humidity,
       dayFourHumidity: weather_data.daily[3].humidity,
       dayFiveHumidity: weather_data.daily[4].humidity,
@@ -222,6 +223,7 @@ app.get("/weather", function(req, res){
       dayFourIcon: weather_data.daily[3].weather[0].icon,
       dayFiveIcon: weather_data.daily[4].weather[0].icon,
       daySixIcon: weather_data.daily[5].weather[0].icon,
+
       daySevenIcon: weather_data.daily[6].weather[0].icon,
 
       developer: 'Weather Avengers',
