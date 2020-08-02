@@ -21,10 +21,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 var moment = require('moment-timezone');
 
-//static files
 app.use(express.static('client'));
 
-//handlbars
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
 
@@ -39,22 +37,10 @@ let units = 'imperial';
 //search history array
 var search = new Array(" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ");
 let previousSearch;
- let currentSearch;
-
-
-
-/*******************************************
- * handle: for homepage load
- *
- * parameters: none
- *
- * returns: renders index page
- ********************************************/
+let currentSearch;
 
 // Home Page. Set Search to User's Location
 app.get("/", function(req,res){
-      // previousSearch = currentSearch;
-      // currentSearch = "Portland, OR"; // User's Location - Update to IP Location.
       res.redirect("/weather");
 });
 
@@ -96,7 +82,7 @@ app.post("/changeMetric", function(req,res)
 //Main Route - Render Weather Information
 app.get("/weather", function(req, res)
 {
-  var weather_data; // Replace this code with something that converts currentSearch into lat / long and uniquely queries the weathermap.
+  var weather_data;
   let apiKey = '364c1375ab235fcd9a6e5c2a537733e6';
   if (location_data){
     if (location_data.status == 'OK') 
@@ -127,7 +113,6 @@ app.get("/weather", function(req, res)
     else 
     {
       weather_data = JSON.parse(body);
-      // console.log(weather_data.daily);
     }
 
     let days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
@@ -199,10 +184,8 @@ app.get("/weather", function(req, res)
 	    daySix_pressure: weather_data.daily[5].pressure,
 	    daySeven_pressure: weather_data.daily[6].pressure,
 
-      //removed precipitation (old code)
-
-	     todayHumidity: weather_data.current.humidity,
-	     dayTwoHumidity: weather_data.daily[1].humidity,
+	    todayHumidity: weather_data.current.humidity,
+	    dayTwoHumidity: weather_data.daily[1].humidity,
       dayThreeHumidity: weather_data.daily[2].humidity,
       dayFourHumidity: weather_data.daily[3].humidity,
       dayFiveHumidity: weather_data.daily[4].humidity,
@@ -228,7 +211,7 @@ app.get("/weather", function(req, res)
 
       developer: 'Weather Avengers',
       courseName: 'CS 361 - Summer 2020',
-      search: search, // Search History
+      search: search,
       currentSearch: currentSearch
     });
   });
