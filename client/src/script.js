@@ -19,7 +19,7 @@ function updateMetric(event, id){
 	req.send(null);
 };
 
-function createRadio(activeMetric){
+function createRadio(){
     let metricType = localStorage.getItem('metric');
     if (metricType === null || metricType == undefined){
         localStorage.setItem('metric','imperial');
