@@ -21,8 +21,9 @@ function updateMetric(event, id){
 
 function createRadio(activeMetric){
     let metricType = localStorage.getItem('metric');
-    if (metricType === null){
+    if (metricType === null || metricType == undefined){
         localStorage.setItem('metric','imperial');
+        metricType = localStorage.getItem('metric');
     }
 
     let radio_div = document.getElementsByClassName("radio-col")[0];
