@@ -53,7 +53,7 @@ img {
     font-size: 56px;
 }
 
-.weather-widget .current .info .wind
+.weather-widget .current .info .wind .humidity .pressure
 {
     font-size: 24px;
 }
