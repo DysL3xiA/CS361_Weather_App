@@ -24,7 +24,7 @@
         {{!-- Initial code for search history display. #each loops through the 'search' array.
           /clearhistory POST action clears 'search' array and and redirects to "/". --}}
           <div class="search-history">
-              <p style="font-size: 16px; font-weight: 600; padding:5px;">
+              <p style="font-size: 16px; font-weight: 600; padding:5px; margin:0rem">
                 Search History:
               </p>
               <p style="padding:5px; height:75%">
@@ -91,21 +91,19 @@
 
     <div id="collapseOne" class="collapse show" aria-labelledby="headingOne">
       <div class="card-body">
-        <div class="row align-items-center">
-          <div class="col align-self-center">
-            <div class="col align-self-center">
+          <div class="left-accordion">
+            <div class="day">
               Day Time: {{current_day_temp}} 
             </div>
-            <div class="col align-self-center">
+            <div class="night">
               Night Time: {{current_night_temp}}
             </div>
           </div>
-          <div class="col align-self-center">
+          <div class="right-accordion">
             {{todayWind}} Wind Speed <br>
             {{todayHumidity}}% Humidity <br>
             {{today_pressure}} Pa Pressure
           </div>
-        </div>
       </div>
     </div>
   </div>
@@ -124,9 +122,19 @@
     </div>
     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo">
       <div class="card-body">
-        {{dayTwoWind}} Wind Speed <br>
-        {{dayTwoHumidity}}% Humidity <br>
-	      {{dayTwo_pressure}} Pa Pressure
+        <div class="left-accordion">
+          <div class="day">
+            Day Time: {{dayTwo_day_temp}} 
+          </div>
+          <div class="night">
+            Night Time: {{dayTwo_night_temp}}
+          </div>
+        </div>
+        <div class="right-accordion">
+          {{dayTwoWind}} Wind Speed <br>
+          {{dayTwoHumidity}}% Humidity <br>
+          {{dayTwo_pressure}} Pa Pressure
+        </div>
       </div>
     </div>
   </div>
@@ -145,9 +153,19 @@
     </div>
     <div id="collapseThree" class="collapse" aria-labelledby="headingThree">
       <div class="card-body">
-        {{dayThreeWind}} Wind Speed <br>
-        {{dayThreeHumidity}}% Humidity <br>
-	{{dayThree_pressure}} Pa Pressure
+        <div class="left-accordion">
+          <div class="day">
+            Day Time: {{dayThree_day_temp}} 
+          </div>
+          <div class="night">
+            Night Time: {{dayThree_night_temp}}
+          </div>
+        </div>
+        <div class="right-accordion">
+          {{dayThreeWind}} Wind Speed <br>
+          {{dayThreeHumidity}}% Humidity <br>
+          {{dayThree_pressure}} Pa Pressure
+        </div>
       </div>
     </div>
   </div>
@@ -166,16 +184,18 @@
     </div>
     <div id="collapseFour" class="collapse" aria-labelledby="headingFour">
       <div class="card-body">
-        <div class="row">
-          <div class="col">
-            <div class="row">Day Time: {{dayFour_day_temp}}</div>
-            <div class="row">Night Time: {{dayFour_night_temp}}</div>
+        <div class="left-accordion">
+          <div class="day">
+            Day Time: {{dayFour_day_temp}} 
           </div>
-          <div class="col">
-            {{dayFourWind}} Wind Speed <br>
-            {{dayFourHumidity}}% Humidity <br>
-            {{dayFour_pressure}} Pa Pressure
+          <div class="night">
+            Night Time: {{dayFour_night_temp}}
           </div>
+        </div>
+        <div class="right-accordion">
+          {{dayFourWind}} Wind Speed <br>
+          {{dayFourHumidity}}% Humidity <br>
+          {{dayFour_pressure}} Pa Pressure
         </div>
       </div>
     </div>
@@ -195,9 +215,19 @@
     </div>
     <div id="collapseFive" class="collapse" aria-labelledby="headingFive">
       <div class="card-body">
-        {{dayFiveWind}} Wind Speed <br>
-        {{dayFiveHumidity}}% Humidity <br>
-	{{dayFive_pressure}} Pa Pressure
+        <div class="left-accordion">
+          <div class="day">
+            Day Time: {{dayFive_day_temp}} 
+          </div>
+          <div class="night">
+            Night Time: {{dayFive_night_temp}}
+          </div>
+        </div>
+        <div class="right-accordion">
+          {{dayFiveWind}} Wind Speed <br>
+          {{dayFiveHumidity}}% Humidity <br>
+          {{dayFive_pressure}} Pa Pressure
+        </div>
       </div>
     </div>
   </div>
@@ -216,9 +246,19 @@
     </div>
     <div id="collapseSix" class="collapse" aria-labelledby="headingSix">
       <div class="card-body">
-        {{daySixWind}} Wind Speed <br>
-        {{daySixHumidity}}% Humidity <br>
-	{{daySix_pressure}} Pa Pressure
+        <div class="left-accordion">
+          <div class="day">
+            Day Time: {{daySix_day_temp}} 
+          </div>
+          <div class="night">
+            Night Time: {{daySix_night_temp}}
+          </div>
+        </div>
+        <div class="right-accordion">
+          {{daySixWind}} Wind Speed <br>
+          {{daySixHumidity}}% Humidity <br>
+          {{daySix_pressure}} Pa Pressure
+        </div>
       </div>
     </div>
   </div>
@@ -237,9 +277,19 @@
     </div>
     <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven">
       <div class="card-body">
-        {{daySevenWind}} Wind Speed <br>
-        {{daySevenHumidity}}% Humidity <br>
-	{{daySeven_pressure}} Pa Pressure
+        <div class="left-accordion">
+          <div class="day">
+            Day Time: {{daySeven_day_temp}} 
+          </div>
+          <div class="night">
+            Night Time: {{daySeven_night_temp}}
+          </div>
+        </div>
+        <div class="right-accordion">
+          {{daySevenWind}} Wind Speed <br>
+          {{daySevenHumidity}}% Humidity <br>
+          {{daySeven_pressure}} Pa Pressure
+        </div>
       </div>
     </div>
   </div>

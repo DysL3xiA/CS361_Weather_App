@@ -9,6 +9,7 @@ img {
 
 .newHeader, .timeZone, .weather, .disclaimer, .location {
   text-align: center;
+  height: 50%;
 }
 
 .metric-button.active
@@ -104,4 +105,25 @@ img {
 {
     box-shadow: 0px 1px 10px 0px #cfcfcf;
     height: 100%;
+}
+
+.day .night
+{
+    height:50%;
+}
+
+.left-accordion
+{
+    width:50%;
+    float:left;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.right-accordion
+{
+    width:50%;
+    float:right;
+    text-align: center;
+    margin-bottom: 10px;
 }
