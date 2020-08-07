@@ -28,11 +28,11 @@ img {
 {
     display: flex;
     flex-flow: row wrap;
-    /* background-image: url("/Content/images/shared/misc/london-view.png"); */
+    
     background-repeat: repeat-x;
     color: black;
     padding: 20px;
-    /* text-shadow: 1px 1px #F68D2E; */
+    
 }
 
 .weather-widget .current .info
