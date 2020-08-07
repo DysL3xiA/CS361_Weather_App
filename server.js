@@ -175,20 +175,20 @@ app.get("/weather", function(req, res)
       context.daySeven_high_temp= Math.round(weather_data.daily[6].temp.max) + '°' + ((units == 'imperial') ? ' F' : ' C');
       context.daySeven_low_temp= Math.round(weather_data.daily[6].temp.min) + '°' + ((units == 'imperial') ? ' F' : ' C');
     
-      context.current_day_temp: Math.round(weather_data.daily[0].temp.day) + '°' + ((units == 'imperial') ? ' F' : ' C'),
-    	context.current_night_temp: Math.round(weather_data.daily[0].temp.night) + '°' + ((units == 'imperial') ? ' F' : ' C'),
-    	context.dayTwo_day_temp : Math.round(weather_data.daily[1].temp.day) + '°' + ((units == 'imperial') ? ' F' : ' C'),
-    	context.dayTwo_night_temp: Math.round(weather_data.daily[1].temp.night) + '°' + ((units == 'imperial') ? ' F' : ' C'),
-    	context.dayThree_day_temp: Math.round(weather_data.daily[2].temp.day) + '°' + ((units == 'imperial') ? ' F' : ' C'),
-    	context.dayThree_night_temp: Math.round(weather_data.daily[2].temp.night) + '°' + ((units == 'imperial') ? ' F' : ' C'),
-    	context.dayFour_day_temp: Math.round(weather_data.daily[3].temp.day) + '°' + ((units == 'imperial') ? ' F' : ' C'),
-    	context.dayFour_night_temp: Math.round(weather_data.daily[3].temp.night) + '°' + ((units == 'imperial') ? ' F' : ' C'),
-    	context.dayFive_day_temp: Math.round(weather_data.daily[4].temp.day) + '°' + ((units == 'imperial') ? ' F' : ' C'),
-    	context.dayFive_night_temp: Math.round(weather_data.daily[4].temp.night) + '°' + ((units == 'imperial') ? ' F' : ' C'),
-    	context.daySix_day_temp: Math.round(weather_data.daily[5].temp.day) + '°' + ((units == 'imperial') ? ' F' : ' C'),
-    	context.daySix_night_temp: Math.round(weather_data.daily[5].temp.night) + '°' + ((units == 'imperial') ? ' F' : ' C'),
-    	context.daySeven_day_temp: Math.round(weather_data.daily[6].temp.day) + '°' + ((units == 'imperial') ? ' F' : ' C'),
-    	context.daySeven_night_temp: Math.round(weather_data.daily[6].temp.night) + '°' + ((units == 'imperial') ? ' F' : ' C'),
+      context.current_day_temp= Math.round(weather_data.daily[0].temp.day) + '°' + ((units == 'imperial') ? ' F' : ' C'),
+    	context.current_night_temp= Math.round(weather_data.daily[0].temp.night) + '°' + ((units == 'imperial') ? ' F' : ' C'),
+    	context.dayTwo_day_temp= Math.round(weather_data.daily[1].temp.day) + '°' + ((units == 'imperial') ? ' F' : ' C'),
+    	context.dayTwo_night_temp= Math.round(weather_data.daily[1].temp.night) + '°' + ((units == 'imperial') ? ' F' : ' C'),
+    	context.dayThree_day_temp= Math.round(weather_data.daily[2].temp.day) + '°' + ((units == 'imperial') ? ' F' : ' C'),
+    	context.dayThree_night_temp= Math.round(weather_data.daily[2].temp.night) + '°' + ((units == 'imperial') ? ' F' : ' C'),
+    	context.dayFour_day_temp= Math.round(weather_data.daily[3].temp.day) + '°' + ((units == 'imperial') ? ' F' : ' C'),
+    	context.dayFour_night_temp= Math.round(weather_data.daily[3].temp.night) + '°' + ((units == 'imperial') ? ' F' : ' C'),
+    	context.dayFive_day_temp= Math.round(weather_data.daily[4].temp.day) + '°' + ((units == 'imperial') ? ' F' : ' C'),
+    	context.dayFive_night_temp= Math.round(weather_data.daily[4].temp.night) + '°' + ((units == 'imperial') ? ' F' : ' C'),
+    	context.daySix_day_temp= Math.round(weather_data.daily[5].temp.day) + '°' + ((units == 'imperial') ? ' F' : ' C'),
+    	context.daySix_night_temp= Math.round(weather_data.daily[5].temp.night) + '°' + ((units == 'imperial') ? ' F' : ' C'),
+    	context.daySeven_day_temp= Math.round(weather_data.daily[6].temp.day) + '°' + ((units == 'imperial') ? ' F' : ' C'),
+    	context.daySeven_night_temp= Math.round(weather_data.daily[6].temp.night) + '°' + ((units == 'imperial') ? ' F' : ' C'),
 
       context.today_pressure= weather_data.current.pressure;
       context.dayTwo_pressure= weather_data.daily[1].pressure;
@@ -222,21 +222,21 @@ app.get("/weather", function(req, res)
       context.daySixIcon= weather_data.daily[5].weather[0].icon;
       context.daySevenIcon= weather_data.daily[6].weather[0].icon;
     
-      context.todaySunrise: weather_data.current.sunrise,
-	    context.dayTwoSunrise: weather_data.daily[1].sunrise,
-      context.dayThreeSunrise: weather_data.daily[2].sunrise,
-      context.dayFourSunrise: weather_data.daily[3].sunrise,
-      context.dayFiveSunrise: weather_data.daily[4].sunrise,
-      context.daySixSunrise: weather_data.daily[5].sunrise,
-      context.daySevenSunrise: weather_data.daily[6].sunrise,
+      context.todaySunrise= weather_data.current.sunrise,
+	    context.dayTwoSunrise= weather_data.daily[1].sunrise,
+      context.dayThreeSunrise= weather_data.daily[2].sunrise,
+      context.dayFourSunrise= weather_data.daily[3].sunrise,
+      context.dayFiveSunrise= weather_data.daily[4].sunrise,
+      context.daySixSunrise= weather_data.daily[5].sunrise,
+      context.daySevenSunrise= weather_data.daily[6].sunrise,
 
-      context.todaySunset: weather_data.current.sunset,
-	    context.dayTwoSunset: weather_data.daily[1].sunset,
-      context.dayThreeSunset: weather_data.daily[2].sunset,
-      context.dayFourSunset: weather_data.daily[3].sunset,
-      context.dayFiveSunset: weather_data.daily[4].sunset,
-      context.daySixSunset: weather_data.daily[5].sunset,
-      context.daySevenSunset: weather_data.daily[6].sunset,
+      context.todaySunset= weather_data.current.sunset,
+	    context.dayTwoSunset= weather_data.daily[1].sunset,
+      context.dayThreeSunset= weather_data.daily[2].sunset,
+      context.dayFourSunset= weather_data.daily[3].sunset,
+      context.dayFiveSunset= weather_data.daily[4].sunset,
+      context.daySixSunset= weather_data.daily[5].sunset,
+      context.daySevenSunset= weather_data.daily[6].sunset,
 
       context.developer= 'Weather Avengers';
       context.courseName= 'CS 361 - Summer 2020';
