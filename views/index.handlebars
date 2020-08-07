@@ -1,19 +1,43 @@
 <h3 class="newHeader"><br/><br/>7 Day Forecast</h3>
 <!-- <h5 class="newHeader"> {{currentLocation}} </h5> -->
 <div class="timeZone"> as of {{time}}, {{date}}<br/><br/></div>
-<!-- Added for Testing City/Zip search. Displays most recent search string on the UI -->
-<div>(Testing) Display the Weather For: {{currentSearch}}</div> 
 
-<form class = "location" action="/newsearch" method="POST">
-  <label for="location"></label>
-  <input type="text" id="location" name="location" placeholder="Enter Zipcode or City">
-  <input class="btn btn-primary btn-sm" type="submit" value="Get Weather"><br><br>
-</form>
+<div class="row">
+  <div class="col">
+     <div class="radio-col">
+      </div>
+  </div>
+  <div class="col">
+    <form class = "location" action="/newsearch" method="POST">
+      <label for="location"></label>
+      <input type="text" id="location" name="location" placeholder="Enter Zipcode or City">
+      <input class="btn btn-primary btn-sm" type="submit" value="Get Weather"><br><br>
+    </form>
+  </div>
+  <div class="col">
+  </div>
+</div>
 
 <div class="container" style="padding-bottom: 25px;">
     <div class="row">
-      <div class="col radio-col">
-      </div>
+      <div class="col">
+        {{!-- Initial code for search history display. #each loops through the 'search' array.
+          /clearhistory POST action clears 'search' array and and redirects to "/". --}}
+          <div class="search-history">
+              <p style="font-size: 16px; font-weight: 600; padding:5px;">
+                Search History:
+              </p>
+              <p style="padding:5px; height:75%">
+                {{#each search}}       
+                {{.}}<br>
+                {{/each}}
+              </p>
+              <form id="clearsearchhistory" action="/clearhistory" method="POST"
+                style="padding:5px">
+                <button class="btn btn-primary btn-sm">Clear History</button>
+              </form>
+          </div>
+        </div>
         <div class="col">
             <div class="weather-widget">
                 <div class="current">
@@ -43,19 +67,10 @@
                 </div>
             </div>
         </div>
-         {{!-- Initial code for search history display. #each loops through the 'search' array.
-         /clearhistory POST action clears 'search' array and and redirects to "/". --}}
         <div class="col">
-          <div class="search-history">
-            <p>Search History:</p>
-            <br>
-            {{#each search}}       
-      	    {{.}}<br>
-            {{/each}}
-            </div>
-            <form id="clearsearchhistory" action="/clearhistory" method="POST">
-              <button>Clear History</button>
-            </form>
+          <div class="weather-map">
+
+          </div>
         </div>
     </div>
 </div>
@@ -65,10 +80,10 @@
     <div class="card-header" id="headingOne">
       <h5 class="mb-0">
         <button class="btn weather-btn" style="width: -webkit-fill-available" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-          <div class="row">
-            <div class="col">Date: {{todayDay}} {{todayDate}}</div>    
-            <div class="col">Temperature: {{current_high_temp}} / {{current_low_temp}}</div>    
-            <div class="col"><img src="/img/{{todayIcon}}.svg"></div>
+          <div class="row align-items-center">
+            <div class="col align-self-center">Date: {{todayDay}} {{todayDate}}</div>    
+            <div class="col align-self-center">Temperature: {{current_high_temp}} / {{current_low_temp}}</div>    
+            <div class="col align-self-center"><img src="/img/{{todayIcon}}.svg"></div>
           </div>
         </button>
       </h5>
@@ -76,9 +91,21 @@
 
     <div id="collapseOne" class="collapse show" aria-labelledby="headingOne">
       <div class="card-body">
-        {{todayWind}} Wind Speed <br>
-        {{todayHumidity}}% Humidity <br>
-	{{today_pressure}} Pa Pressure 
+        <div class="row align-items-center">
+          <div class="col align-self-center">
+            <div class="col align-self-center">
+              Day Time: {{current_day_temp}} 
+            </div>
+            <div class="col align-self-center">
+              Night Time: {{current_night_temp}}
+            </div>
+          </div>
+          <div class="col align-self-center">
+            {{todayWind}} Wind Speed <br>
+            {{todayHumidity}}% Humidity <br>
+            {{today_pressure}} Pa Pressure
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -87,7 +114,7 @@
     <div class="card-header" id="headingTwo">
       <h5 class="mb-0">
         <button class="btn collapsed weather-btn" style="width: -webkit-fill-available" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-          <div class="row">
+          <div class="row align-items-center">
             <div class="col">Date: {{dayTwoDay}} {{dayTwoDate}}</div>   
             <div class="col">Temperature: {{dayTwo_high_temp}} / {{dayTwo_low_temp}}</div>
             <div class="col"><img src="/img/{{dayTwoIcon}}.svg"></div>
@@ -99,7 +126,7 @@
       <div class="card-body">
         {{dayTwoWind}} Wind Speed <br>
         {{dayTwoHumidity}}% Humidity <br>
-	{{dayTwo_pressure}} Pa Pressure
+	      {{dayTwo_pressure}} Pa Pressure
       </div>
     </div>
   </div>
@@ -108,7 +135,7 @@
     <div class="card-header" id="headingThree">
       <h5 class="mb-0">
         <button class="btn collapsed weather-btn" style="width: -webkit-fill-available" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-          <div class="row">
+          <div class="row align-items-center">
             <div class="col">Date: {{dayThreeDay}} {{dayThreeDate}}</div>   
             <div class="col">Temperature: {{dayThree_high_temp}} / {{dayThree_low_temp}}</div>
             <div class="col"><img src="/img/{{dayThreeIcon}}.svg"></div>
@@ -129,7 +156,7 @@
     <div class="card-header" id="headingFour">
       <h5 class="mb-0">
         <button class="btn collapsed weather-btn" style="width: -webkit-fill-available" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-          <div class="row">
+          <div class="row align-items-center">
             <div class="col">Date: {{dayFourDay}} {{dayFourDate}}</div>   
             <div class="col">Temperature: {{dayFour_high_temp}} / {{dayFour_low_temp}}</div>
             <div class="col"><img src="/img/{{dayFourIcon}}.svg"></div>
@@ -139,9 +166,17 @@
     </div>
     <div id="collapseFour" class="collapse" aria-labelledby="headingFour">
       <div class="card-body">
-        {{dayFourWind}} Wind Speed <br>
-        {{dayFourHumidity}}% Humidity <br>
-	{{dayFour_pressure}} Pa Pressure
+        <div class="row">
+          <div class="col">
+            <div class="row">Day Time: {{dayFour_day_temp}}</div>
+            <div class="row">Night Time: {{dayFour_night_temp}}</div>
+          </div>
+          <div class="col">
+            {{dayFourWind}} Wind Speed <br>
+            {{dayFourHumidity}}% Humidity <br>
+            {{dayFour_pressure}} Pa Pressure
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -150,7 +185,7 @@
     <div class="card-header" id="headingFive">
       <h5 class="mb-0">
         <button class="btn collapsed weather-btn" style="width: -webkit-fill-available" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-          <div class="row">
+          <div class="row align-items-center">
             <div class="col">Date: {{dayFiveDay}} {{dayFiveDate}}</div>   
             <div class="col">Temperature: {{dayFive_high_temp}} / {{dayFive_low_temp}}</div>
             <div class="col"><img src="/img/{{dayFiveIcon}}.svg"></div>
@@ -171,7 +206,7 @@
     <div class="card-header" id="headingSix">
       <h5 class="mb-0">
         <button class="btn collapsed weather-btn" style="width: -webkit-fill-available" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-          <div class="row">
+          <div class="row align-items-center">
             <div class="col">Date: {{daySixDay}} {{daySixDate}}</div>   
             <div class="col">Temperature: {{daySix_high_temp}} / {{daySix_low_temp}}</div>
             <div class="col"><img src="/img/{{daySixIcon}}.svg"></div>
@@ -192,7 +227,7 @@
     <div class="card-header" id="headingSeven">
       <h5 class="mb-0">
         <button class="btn collapsed weather-btn" style="width: -webkit-fill-available" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
-          <div class="row">
+          <div class="row align-items-center">
             <div class="col">Date: {{daySevenDay}} {{daySevenDate}}</div>   
             <div class="col">Temperature: {{daySeven_high_temp}} / {{daySeven_low_temp}}</div>
             <div class="col"><img src="/img/{{daySevenIcon}}.svg"></div>

@@ -93,3 +93,15 @@ img {
 {
     font-size: 28px;
 }
+
+.search-history
+{
+    box-shadow: 0px 1px 10px 0px #cfcfcf;
+    height: 100%;
+}
+
+.weather-map
+{
+    box-shadow: 0px 1px 10px 0px #cfcfcf;
+    height: 100%;
+}

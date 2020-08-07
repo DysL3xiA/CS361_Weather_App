@@ -27,6 +27,7 @@ function createRadio(){
     }
 
     let radio_div = document.getElementsByClassName("radio-col")[0];
+    radio_div.style.paddingBottom = "1em";
     let btn_div = document.createElement("div");
     btn_div.classList.add("btn-group", "btn-group-toggle");
     btn_div.setAttribute("data-toggle", "buttons");
