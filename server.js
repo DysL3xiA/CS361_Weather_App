@@ -126,93 +126,92 @@ app.get("/weather", function(req, res)
     var daySixDate = moment.unix(weather_data.daily[5].dt).tz(weather_data.timezone);
     var daySevenDate = moment.unix(weather_data.daily[6].dt).tz(weather_data.timezone);
 
-    res.render("index", {
-      currentLocation: city,
+    var context={};
+      context.currentLocation= city;
 
-      time: date.format('h:mm:ss'),
-      date: date.format('M-D-YYYY'),
+      context.time= date.format('h:mm:ss');
+      context.date= date.format('M-D-YYYY');
 
-      todayDay: days[date.day()],
-      dayTwoDay: days[dayTwoDate.day()],
-      dayThreeDay: days[dayThreeDate.day()],
-      dayFourDay: days[dayFourDate.day()],
-      dayFiveDay: days[dayFiveDate.day()],
-      daySixDay: days[daySixDate.day()],
-      daySevenDay: days[daySevenDate.day()],
+      context.todayDay= days[date.day()];
+      context.dayTwoDay= days[dayTwoDate.day()];
+      context.dayThreeDay= days[dayThreeDate.day()];
+      context.dayFourDay= days[dayFourDate.day()];
+      context.dayFiveDay= days[dayFiveDate.day()];
+      context.daySixDay= days[daySixDate.day()];
+      context.daySevenDay= days[daySevenDate.day()];
 
-      todayDayShort: daysShort[date.day()],
-      dayTwoDayShort: daysShort[dayTwoDate.day()],
-      dayThreeDayShort: daysShort[dayThreeDate.day()],
+      context.todayDayShort= daysShort[date.day()];
+      context.dayTwoDayShort= daysShort[dayTwoDate.day()];
+      context.dayThreeDayShort= daysShort[dayThreeDate.day()];
 
-      todayDate: date.format('D'),
-      dayTwoDate: dayTwoDate.format('D'),
-      dayThreeDate: dayThreeDate.format('D'),
-      dayFourDate: dayFourDate.format('D'),
-      dayFiveDate: dayFiveDate.format('D'),
-      daySixDate: daySixDate.format('D'),
-      daySevenDate: daySevenDate.format('D'),
+      context.todayDate= date.format('D');
+      context.dayTwoDate= dayTwoDate.format('D');
+      context.dayThreeDate= dayThreeDate.format('D');
+      context.dayFourDate= dayFourDate.format('D');
+      context.dayFiveDate= dayFiveDate.format('D');
+      context.daySixDate= daySixDate.format('D');
+      context.daySevenDate= daySevenDate.format('D');
 
-      todayTemperature: Math.round(weather_data.current.temp) + '°' + ((units == 'imperial') ? ' F' : ' C'),
-      dayTwoTemperature: weather_data.daily[1].temp.day + '°' + ((units == 'imperial') ? ' F' : ' C'),
-      dayThreeTemperature: weather_data.daily[2].temp.day + '°' + ((units == 'imperial') ? ' F' : ' C'),
-      dayFourTemperature: weather_data.daily[3].temp.day + '°' + ((units == 'imperial') ? ' F' : ' C'),
-      dayFiveTemperature: weather_data.daily[4].temp.day + '°' + ((units == 'imperial') ? ' F' : ' C'),
-      daySixTemperature: weather_data.daily[5].temp.day + '°' + ((units == 'imperial') ? ' F' : ' C'),
-      daySevenTemperature: weather_data.daily[6].temp.day + '°' + ((units == 'imperial') ? ' F' : ' C'),
+      context.todayTemperature= Math.round(weather_data.current.temp) + '°' + ((units == 'imperial') ? ' F' : ' C');
+      context.dayTwoTemperature= weather_data.daily[1].temp.day + '°' + ((units == 'imperial') ? ' F' : ' C');
+      context.dayThreeTemperature= weather_data.daily[2].temp.day + '°' + ((units == 'imperial') ? ' F' : ' C');
+      context.dayFourTemperature= weather_data.daily[3].temp.day + '°' + ((units == 'imperial') ? ' F' : ' C');
+      context.dayFiveTemperature= weather_data.daily[4].temp.day + '°' + ((units == 'imperial') ? ' F' : ' C');
+      context.daySixTemperature= weather_data.daily[5].temp.day + '°' + ((units == 'imperial') ? ' F' : ' C');
+      context.daySevenTemperature= weather_data.daily[6].temp.day + '°' + ((units == 'imperial') ? ' F' : ' C');
 
-    	current_high_temp: Math.round(weather_data.daily[0].temp.max) + '°' + ((units == 'imperial') ? ' F' : ' C'),
-    	current_low_temp: Math.round(weather_data.daily[0].temp.min) + '°' + ((units == 'imperial') ? ' F' : ' C'),
-    	dayTwo_high_temp : Math.round(weather_data.daily[1].temp.max) + '°' + ((units == 'imperial') ? ' F' : ' C'),
-    	dayTwo_low_temp: Math.round(weather_data.daily[1].temp.min) + '°' + ((units == 'imperial') ? ' F' : ' C'),
-    	dayThree_high_temp: Math.round(weather_data.daily[2].temp.max) + '°' + ((units == 'imperial') ? ' F' : ' C'),
-    	dayThree_low_temp: Math.round(weather_data.daily[2].temp.min) + '°' + ((units == 'imperial') ? ' F' : ' C'),
-    	dayFour_high_temp: Math.round(weather_data.daily[3].temp.max) + '°' + ((units == 'imperial') ? ' F' : ' C'),
-    	dayFour_low_temp: Math.round(weather_data.daily[3].temp.min) + '°' + ((units == 'imperial') ? ' F' : ' C'),
-    	dayFive_high_temp: Math.round(weather_data.daily[4].temp.max) + '°' + ((units == 'imperial') ? ' F' : ' C'),
-    	dayFive_low_temp: Math.round(weather_data.daily[4].temp.min) + '°' + ((units == 'imperial') ? ' F' : ' C'),
-    	daySix_high_temp: Math.round(weather_data.daily[5].temp.max) + '°' + ((units == 'imperial') ? ' F' : ' C'),
-    	daySix_low_temp: Math.round(weather_data.daily[5].temp.min) + '°' + ((units == 'imperial') ? ' F' : ' C'),
-    	daySeven_high_temp: Math.round(weather_data.daily[6].temp.max) + '°' + ((units == 'imperial') ? ' F' : ' C'),
-    	daySeven_low_temp: Math.round(weather_data.daily[6].temp.min) + '°' + ((units == 'imperial') ? ' F' : ' C'),
+      context.current_high_temp= Math.round(weather_data.daily[0].temp.max) + '°' + ((units == 'imperial') ? ' F' : ' C');
+      context.current_low_temp= Math.round(weather_data.daily[0].temp.min) + '°' + ((units == 'imperial') ? ' F' : ' C');
+      context.dayTwo_high_temp = Math.round(weather_data.daily[1].temp.max) + '°' + ((units == 'imperial') ? ' F' : ' C');
+      context.dayTwo_low_temp= Math.round(weather_data.daily[1].temp.min) + '°' + ((units == 'imperial') ? ' F' : ' C');
+      context.dayThree_high_temp= Math.round(weather_data.daily[2].temp.max) + '°' + ((units == 'imperial') ? ' F' : ' C');
+      context.dayThree_low_temp= Math.round(weather_data.daily[2].temp.min) + '°' + ((units == 'imperial') ? ' F' : ' C');
+      context.dayFour_high_temp= Math.round(weather_data.daily[3].temp.max) + '°' + ((units == 'imperial') ? ' F' : ' C');
+      context.dayFour_low_temp= Math.round(weather_data.daily[3].temp.min) + '°' + ((units == 'imperial') ? ' F' : ' C');
+      context.dayFive_high_temp= Math.round(weather_data.daily[4].temp.max) + '°' + ((units == 'imperial') ? ' F' : ' C');
+      context.dayFive_low_temp= Math.round(weather_data.daily[4].temp.min) + '°' + ((units == 'imperial') ? ' F' : ' C');
+      context.daySix_high_temp= Math.round(weather_data.daily[5].temp.max) + '°' + ((units == 'imperial') ? ' F' : ' C');
+      context.daySix_low_temp= Math.round(weather_data.daily[5].temp.min) + '°' + ((units == 'imperial') ? ' F' : ' C');
+      context.daySeven_high_temp= Math.round(weather_data.daily[6].temp.max) + '°' + ((units == 'imperial') ? ' F' : ' C');
+      context.daySeven_low_temp= Math.round(weather_data.daily[6].temp.min) + '°' + ((units == 'imperial') ? ' F' : ' C');
 
+      context.today_pressure= weather_data.current.pressure;
+      context.dayTwo_pressure= weather_data.daily[1].pressure;
+      context.dayThree_pressure= weather_data.daily[2].pressure
+      context.dayFour_pressure= weather_data.daily[3].pressure;
+      context.dayFive_pressure= weather_data.daily[4].pressure
+      context.daySix_pressure= weather_data.daily[5].pressure;
+      context.daySeven_pressure= weather_data.daily[6].pressure;
+
+      context.todayHumidity= weather_data.current.humidity;
+      context.dayTwoHumidity= weather_data.daily[1].humidity;
+      context.dayThreeHumidity= weather_data.daily[2].humidity;
+      context.dayFourHumidity= weather_data.daily[3].humidity;
+      context.dayFiveHumidity= weather_data.daily[4].humidity;
+      context.daySixHumidity= weather_data.daily[5].humidity;
+      context.daySevenHumidity= weather_data.daily[6].humidity;
+
+      context.todayWind= Math.round(weather_data.current.wind_speed) + ((units == 'imperial') ? ' mph' : ' metres/sec');
+      context.dayTwoWind= Math.round(weather_data.daily[1].wind_speed) + ((units == 'imperial') ? ' mph' : ' metres/sec');
+      context.dayThreeWind= Math.round(weather_data.daily[2].wind_speed) + ((units == 'imperial') ? ' mph' : ' metres/sec');
+      context.dayFourWind= Math.round(weather_data.daily[3].wind_speed) + ((units == 'imperial') ? ' mph' : ' metres/sec');
+      context.dayFiveWind= Math.round(weather_data.daily[4].wind_speed) + ((units == 'imperial') ? ' mph' : ' metres/sec');
+      context.daySixWind=Math.round(weather_data.daily[5].wind_speed) + ((units == 'imperial') ? ' mph' : ' metres/sec');
+      context.daySevenWind= Math.round(weather_data.daily[6].wind_speed) + ((units == 'imperial') ? ' mph' : ' metres/sec');
+
+      context.todayIcon= weather_data.current.weather[0].icon;
+      context.dayTwoIcon= weather_data.daily[1].weather[0].icon;
+      context.dayThreeIcon= weather_data.daily[2].weather[0].icon;
+      context.dayFourIcon= weather_data.daily[3].weather[0].icon;
+      context.dayFiveIcon= weather_data.daily[4].weather[0].icon;
+      context.daySixIcon= weather_data.daily[5].weather[0].icon;
+      context.daySevenIcon= weather_data.daily[6].weather[0].icon;
+
+      context.developer= 'Weather Avengers';
+      context.courseName= 'CS 361 - Summer 2020';
+      context.search= search;
+      context.currentSearch= currentSearch;
       
-	    today_pressure: weather_data.current.pressure,
-	    dayTwo_pressure: weather_data.daily[1].pressure,
-	    dayThree_pressure: weather_data.daily[2].pressure,
-	    dayFour_pressure: weather_data.daily[3].pressure,
-	    dayFive_pressure: weather_data.daily[4].pressure,
-	    daySix_pressure: weather_data.daily[5].pressure,
-	    daySeven_pressure: weather_data.daily[6].pressure,
-
-	    todayHumidity: weather_data.current.humidity,
-	    dayTwoHumidity: weather_data.daily[1].humidity,
-      dayThreeHumidity: weather_data.daily[2].humidity,
-      dayFourHumidity: weather_data.daily[3].humidity,
-      dayFiveHumidity: weather_data.daily[4].humidity,
-      daySixHumidity: weather_data.daily[5].humidity,
-      daySevenHumidity: weather_data.daily[6].humidity,
-
-      todayWind: Math.round(weather_data.current.wind_speed) + ((units == 'imperial') ? ' mph' : ' metres/sec'),
-      dayTwoWind: Math.round(weather_data.daily[1].wind_speed) + ((units == 'imperial') ? ' mph' : ' metres/sec'),
-      dayThreeWind: Math.round(weather_data.daily[2].wind_speed) + ((units == 'imperial') ? ' mph' : ' metres/sec'),
-      dayFourWind: Math.round(weather_data.daily[3].wind_speed) + ((units == 'imperial') ? ' mph' : ' metres/sec'),
-      dayFiveWind: Math.round(weather_data.daily[4].wind_speed) + ((units == 'imperial') ? ' mph' : ' metres/sec'),
-      daySixWind: Math.round(weather_data.daily[5].wind_speed) + ((units == 'imperial') ? ' mph' : ' metres/sec'),
-      daySevenWind: Math.round(weather_data.daily[6].wind_speed) + ((units == 'imperial') ? ' mph' : ' metres/sec'),
-
-      todayIcon: weather_data.current.weather[0].icon,
-      dayTwoIcon: weather_data.daily[1].weather[0].icon,
-      dayThreeIcon: weather_data.daily[2].weather[0].icon,
-      dayFourIcon: weather_data.daily[3].weather[0].icon,
-      dayFiveIcon: weather_data.daily[4].weather[0].icon,
-      daySixIcon: weather_data.daily[5].weather[0].icon,
-
-      daySevenIcon: weather_data.daily[6].weather[0].icon,
-
-      developer: 'Weather Avengers',
-      courseName: 'CS 361 - Summer 2020',
-      search: search,
-      currentSearch: currentSearch
-    });
+      res.render("index",context);
   });
 });
