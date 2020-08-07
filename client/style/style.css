@@ -53,7 +53,7 @@ img {
     font-size: 56px;
 }
 
-.weather-widget .current .info .wind
+.weather-widget .current .info .wind .humidity .pressure
 {
     font-size: 24px;
 }
@@ -92,4 +92,16 @@ img {
 .weather-widget .future .day p
 {
     font-size: 28px;
+}
+
+.search-history
+{
+    box-shadow: 0px 1px 10px 0px #cfcfcf;
+    height: 100%;
+}
+
+.weather-map
+{
+    box-shadow: 0px 1px 10px 0px #cfcfcf;
+    height: 100%;
 }
