@@ -238,8 +238,6 @@ app.get("/weather", function(req, res)
       context.daySixSunset= weather_data.daily[5].sunset,
       context.daySevenSunset= weather_data.daily[6].sunset,
 
-      context.developer= 'Weather Avengers';
-      context.courseName= 'CS 361 - Summer 2020';
       context.search= search;
       context.currentSearch= currentSearch;
       
