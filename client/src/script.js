@@ -47,7 +47,7 @@ function createRadio(){
     btn_div.setAttribute("data-toggle", "buttons");
 
     let metrics = ['imperial', 'metric'];
-    let names = ['Farenheit', 'Celsius'];
+    let names = ['Fahrenheit', 'Celsius'];
 
     for (let i = 0; i < metrics.length; i++){
         let btn_label = document.createElement("label");
