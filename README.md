@@ -4,7 +4,7 @@ This is a Weather App we are building for CS 361
 
 Weather app hosted via Heroku: https://weather-avengers-app.herokuapp.com/ 
 
-Download Publisehd Weather App via Google Play Store (search "Weather Avengers"): https://play.google.com/store/search?q=Weather%20Avengers&c=apps&hl=en_US
+Download via Google Play Store (search "Weather Avengers"): https://play.google.com/store/search?q=Weather%20Avengers&c=apps&hl=en_US
 
 Project Architecture Outline:
 
