@@ -125,9 +125,13 @@ app.get("/weather", function(req, res)
     var dayFiveDate = moment.unix(weather_data.daily[4].dt).tz(weather_data.timezone);
     var daySixDate = moment.unix(weather_data.daily[5].dt).tz(weather_data.timezone);
     var daySevenDate = moment.unix(weather_data.daily[6].dt).tz(weather_data.timezone);
+    var locationLatitude = lat;
+    var locationLongitude = lon;
 
     var context={};
       context.currentLocation= city;
+      context.locationLatitude=locationLatitude,
+      context.locationLongitude=locationLongitude,
 
       context.time= date.format('h:mm:ss');
       context.date= date.format('M-D-YYYY');

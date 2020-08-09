@@ -67,9 +67,17 @@
             </div>
         </div>
         <div class="col">
-          <div class="weather-map">
-
-          </div>
+          {{!--Documentation Source: https://developers.google.com/maps/documentation/javascript/adding-a-google-map --}}
+            <div class="weather-map" id="map"></div> {{!-- Div Element for the Map--}}
+            <script>
+              function initMap(){
+              var locationLatitude = {{locationLatitude}};
+              var locationLongitude = {{locationLongitude}};
+              var weatherLocation = {lat:locationLatitude,lng:locationLongitude};
+              var map = new google.maps.Map(document.getElementById('map'), {zoom:6,center:weatherLocation});
+              var marker = new google.maps.Marker({position:weatherLocation, map:map});
+              }
+            </script>
         </div>
     </div>
 </div>
@@ -293,3 +301,4 @@
     </div>
   </div>
 </div>
+<script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBPH7E-1UWMVO13QgYk3kVfYYpqqM-oLQ&callback=initMap"></script>
