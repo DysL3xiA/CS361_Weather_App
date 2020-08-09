@@ -1,10 +1,20 @@
-<h3 class="newHeader"><br/><br/>7 Day Forecast</h3>
-<div class="timeZone"> as of {{time}}, {{date}}<br/><br/></div>
-
-<div class="row">
+<div class="row mb-3 top-buffer">
+  <div class="col my-auto">
+    <div class="radio-col">
+    </div>
+  </div>
+  <div class="col my-auto">
+    <h3 class="newHeader">7 Day Forecast</h3>
+    <div class="timeZone"> as of {{time}}, {{date}}</div> 
+  </div>
   <div class="col">
-     <div class="radio-col">
-      </div>
+  </div>
+</div>
+
+
+
+<div class="row mb-3 top-buffer">
+  <div class="col">
   </div>
   <div class="col">
     <form class = "location" action="/newsearch" method="POST">
