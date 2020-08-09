@@ -20,7 +20,21 @@ function updateMetric(event, id){
 };
 
 function createRadio(){
-    let metricType = localStorage.getItem('metric');
+    let metricName = document.getElementsByClassName("temp")[0].innerHTML;
+    metricName = metricName.charAt(metricName.length-1);
+    let metricType;
+
+    if (metricName != null || metricName != undefined){
+        if (metricName === 'F'){
+            localStorage.setItem('metric','imperial');
+            metricType = localStorage.getItem('metric'); 
+        }
+        else if (metricName === 'C'){
+            localStorage.setItem('metric','metric');
+            metricType = localStorage.getItem('metric');
+        }
+    }
+    
     if (metricType === null || metricType == undefined){
         localStorage.setItem('metric','imperial');
         metricType = localStorage.getItem('metric');
