@@ -10,7 +10,7 @@
  ******************************************************************************/
 
 var express = require('express');
- var request = require('request');
+var request = require('request');
 
 var app = express();
 var bodyParser = require('body-parser');
@@ -39,6 +39,14 @@ var search = new Array(" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " 
 let previousSearch;
 let currentSearch;
 
+function getUnits() {
+  if (units == 'imperial') {
+    return '° F';
+  }
+  else {
+    return '° C'
+  }
+}
 // Home Page. Set Search to User's Location
 app.get("/", function(req,res){
       res.redirect("/weather");
@@ -156,43 +164,45 @@ app.get("/weather", function(req, res)
       context.daySixDate= daySixDate.format('D');
       context.daySevenDate= daySevenDate.format('D');
 
-      context.todayTemperature= Math.round(weather_data.current.temp) + '°' + ((units == 'imperial') ? ' F' : ' C');
-      context.dayTwoTemperature= weather_data.daily[1].temp.day + '°' + ((units == 'imperial') ? ' F' : ' C');
-      context.dayThreeTemperature= weather_data.daily[2].temp.day + '°' + ((units == 'imperial') ? ' F' : ' C');
-      context.dayFourTemperature= weather_data.daily[3].temp.day + '°' + ((units == 'imperial') ? ' F' : ' C');
-      context.dayFiveTemperature= weather_data.daily[4].temp.day + '°' + ((units == 'imperial') ? ' F' : ' C');
-      context.daySixTemperature= weather_data.daily[5].temp.day + '°' + ((units == 'imperial') ? ' F' : ' C');
-      context.daySevenTemperature= weather_data.daily[6].temp.day + '°' + ((units == 'imperial') ? ' F' : ' C');
+      var currentUnits = getUnits();
 
-      context.current_high_temp= Math.round(weather_data.daily[0].temp.max) + '°' + ((units == 'imperial') ? ' F' : ' C');
-      context.current_low_temp= Math.round(weather_data.daily[0].temp.min) + '°' + ((units == 'imperial') ? ' F' : ' C');
-      context.dayTwo_high_temp = Math.round(weather_data.daily[1].temp.max) + '°' + ((units == 'imperial') ? ' F' : ' C');
-      context.dayTwo_low_temp= Math.round(weather_data.daily[1].temp.min) + '°' + ((units == 'imperial') ? ' F' : ' C');
-      context.dayThree_high_temp= Math.round(weather_data.daily[2].temp.max) + '°' + ((units == 'imperial') ? ' F' : ' C');
-      context.dayThree_low_temp= Math.round(weather_data.daily[2].temp.min) + '°' + ((units == 'imperial') ? ' F' : ' C');
-      context.dayFour_high_temp= Math.round(weather_data.daily[3].temp.max) + '°' + ((units == 'imperial') ? ' F' : ' C');
-      context.dayFour_low_temp= Math.round(weather_data.daily[3].temp.min) + '°' + ((units == 'imperial') ? ' F' : ' C');
-      context.dayFive_high_temp= Math.round(weather_data.daily[4].temp.max) + '°' + ((units == 'imperial') ? ' F' : ' C');
-      context.dayFive_low_temp= Math.round(weather_data.daily[4].temp.min) + '°' + ((units == 'imperial') ? ' F' : ' C');
-      context.daySix_high_temp= Math.round(weather_data.daily[5].temp.max) + '°' + ((units == 'imperial') ? ' F' : ' C');
-      context.daySix_low_temp= Math.round(weather_data.daily[5].temp.min) + '°' + ((units == 'imperial') ? ' F' : ' C');
-      context.daySeven_high_temp= Math.round(weather_data.daily[6].temp.max) + '°' + ((units == 'imperial') ? ' F' : ' C');
-      context.daySeven_low_temp= Math.round(weather_data.daily[6].temp.min) + '°' + ((units == 'imperial') ? ' F' : ' C');
-    
-      context.current_day_temp= Math.round(weather_data.daily[0].temp.day) + '°' + ((units == 'imperial') ? ' F' : ' C'),
-    	context.current_night_temp= Math.round(weather_data.daily[0].temp.night) + '°' + ((units == 'imperial') ? ' F' : ' C'),
-    	context.dayTwo_day_temp= Math.round(weather_data.daily[1].temp.day) + '°' + ((units == 'imperial') ? ' F' : ' C'),
-    	context.dayTwo_night_temp= Math.round(weather_data.daily[1].temp.night) + '°' + ((units == 'imperial') ? ' F' : ' C'),
-    	context.dayThree_day_temp= Math.round(weather_data.daily[2].temp.day) + '°' + ((units == 'imperial') ? ' F' : ' C'),
-    	context.dayThree_night_temp= Math.round(weather_data.daily[2].temp.night) + '°' + ((units == 'imperial') ? ' F' : ' C'),
-    	context.dayFour_day_temp= Math.round(weather_data.daily[3].temp.day) + '°' + ((units == 'imperial') ? ' F' : ' C'),
-    	context.dayFour_night_temp= Math.round(weather_data.daily[3].temp.night) + '°' + ((units == 'imperial') ? ' F' : ' C'),
-    	context.dayFive_day_temp= Math.round(weather_data.daily[4].temp.day) + '°' + ((units == 'imperial') ? ' F' : ' C'),
-    	context.dayFive_night_temp= Math.round(weather_data.daily[4].temp.night) + '°' + ((units == 'imperial') ? ' F' : ' C'),
-    	context.daySix_day_temp= Math.round(weather_data.daily[5].temp.day) + '°' + ((units == 'imperial') ? ' F' : ' C'),
-    	context.daySix_night_temp= Math.round(weather_data.daily[5].temp.night) + '°' + ((units == 'imperial') ? ' F' : ' C'),
-    	context.daySeven_day_temp= Math.round(weather_data.daily[6].temp.day) + '°' + ((units == 'imperial') ? ' F' : ' C'),
-    	context.daySeven_night_temp= Math.round(weather_data.daily[6].temp.night) + '°' + ((units == 'imperial') ? ' F' : ' C'),
+      context.todayTemperature= Math.round(weather_data.current.temp)+ currentUnits;
+      context.dayTwoTemperature= weather_data.daily[1].temp.day + currentUnits;
+      context.dayThreeTemperature= weather_data.daily[2].temp.day + currentUnits;
+      context.dayFourTemperature= weather_data.daily[3].temp.day + currentUnits;
+      context.dayFiveTemperature= weather_data.daily[4].temp.day + currentUnits;
+      context.daySixTemperature= weather_data.daily[5].temp.day + currentUnits;
+      context.daySevenTemperature= weather_data.daily[6].temp.day + currentUnits;
+
+      context.current_high_temp= Math.round(weather_data.daily[0].temp.max) + currentUnits;
+      context.current_low_temp= Math.round(weather_data.daily[0].temp.min) + currentUnits;
+      context.dayTwo_high_temp = Math.round(weather_data.daily[1].temp.max) + currentUnits;
+      context.dayTwo_low_temp= Math.round(weather_data.daily[1].temp.min) + currentUnits;
+      context.dayThree_high_temp= Math.round(weather_data.daily[2].temp.max) + currentUnits;
+      context.dayThree_low_temp= Math.round(weather_data.daily[2].temp.min) + currentUnits;
+      context.dayFour_high_temp= Math.round(weather_data.daily[3].temp.max) + currentUnits;
+      context.dayFour_low_temp= Math.round(weather_data.daily[3].temp.min) + currentUnits;
+      context.dayFive_high_temp= Math.round(weather_data.daily[4].temp.max) + currentUnits;
+      context.dayFive_low_temp= Math.round(weather_data.daily[4].temp.min) + currentUnits;
+      context.daySix_high_temp= Math.round(weather_data.daily[5].temp.max) + currentUnits;
+      context.daySix_low_temp= Math.round(weather_data.daily[5].temp.min) + currentUnits;
+      context.daySeven_high_temp= Math.round(weather_data.daily[6].temp.max) + currentUnits;
+      context.daySeven_low_temp= Math.round(weather_data.daily[6].temp.min) + currentUnits;
+
+      context.current_day_temp= Math.round(weather_data.daily[0].temp.day) + currentUnits,
+    	context.current_night_temp= Math.round(weather_data.daily[0].temp.night) + currentUnits,
+    	context.dayTwo_day_temp= Math.round(weather_data.daily[1].temp.day) + currentUnits,
+    	context.dayTwo_night_temp= Math.round(weather_data.daily[1].temp.night) + currentUnits,
+    	context.dayThree_day_temp= Math.round(weather_data.daily[2].temp.day) + currentUnits,
+    	context.dayThree_night_temp= Math.round(weather_data.daily[2].temp.night) + currentUnits,
+    	context.dayFour_day_temp= Math.round(weather_data.daily[3].temp.day) + currentUnits,
+    	context.dayFour_night_temp= Math.round(weather_data.daily[3].temp.night) + currentUnits,
+    	context.dayFive_day_temp= Math.round(weather_data.daily[4].temp.day) + currentUnits,
+    	context.dayFive_night_temp= Math.round(weather_data.daily[4].temp.night) + currentUnits,
+    	context.daySix_day_temp= Math.round(weather_data.daily[5].temp.day) + currentUnits,
+    	context.daySix_night_temp= Math.round(weather_data.daily[5].temp.night) + currentUnits,
+    	context.daySeven_day_temp= Math.round(weather_data.daily[6].temp.day) + currentUnits,
+    	context.daySeven_night_temp= Math.round(weather_data.daily[6].temp.night) + currentUnits,
 
       context.today_pressure= weather_data.current.pressure;
       context.dayTwo_pressure= weather_data.daily[1].pressure;
