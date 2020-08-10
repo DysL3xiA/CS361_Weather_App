@@ -39,7 +39,7 @@ var search = new Array(" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " 
 let previousSearch;
 let currentSearch;
 
-function getUnits() {
+function getTempUnits() {
   if (units == 'imperial') {
     return '° F';
   }
@@ -47,6 +47,16 @@ function getUnits() {
     return '° C'
   }
 }
+
+function getWindUnits() {
+  if (units == 'imperial') {
+    return ' mph';
+  }
+  else {
+    return ' metres/sec';
+  }
+}
+
 // Home Page. Set Search to User's Location
 app.get("/", function(req,res){
       res.redirect("/weather");
@@ -164,7 +174,7 @@ app.get("/weather", function(req, res)
       context.daySixDate= daySixDate.format('D');
       context.daySevenDate= daySevenDate.format('D');
 
-      var currentUnits = getUnits();
+      var currentUnits = getTempUnits();
 
       context.todayTemperature= Math.round(weather_data.current.temp)+ currentUnits;
       context.dayTwoTemperature= weather_data.daily[1].temp.day + currentUnits;
@@ -220,13 +230,15 @@ app.get("/weather", function(req, res)
       context.daySixHumidity= weather_data.daily[5].humidity;
       context.daySevenHumidity= weather_data.daily[6].humidity;
 
-      context.todayWind= Math.round(weather_data.current.wind_speed) + ((units == 'imperial') ? ' mph' : ' metres/sec');
-      context.dayTwoWind= Math.round(weather_data.daily[1].wind_speed) + ((units == 'imperial') ? ' mph' : ' metres/sec');
-      context.dayThreeWind= Math.round(weather_data.daily[2].wind_speed) + ((units == 'imperial') ? ' mph' : ' metres/sec');
-      context.dayFourWind= Math.round(weather_data.daily[3].wind_speed) + ((units == 'imperial') ? ' mph' : ' metres/sec');
-      context.dayFiveWind= Math.round(weather_data.daily[4].wind_speed) + ((units == 'imperial') ? ' mph' : ' metres/sec');
-      context.daySixWind=Math.round(weather_data.daily[5].wind_speed) + ((units == 'imperial') ? ' mph' : ' metres/sec');
-      context.daySevenWind= Math.round(weather_data.daily[6].wind_speed) + ((units == 'imperial') ? ' mph' : ' metres/sec');
+      var currWindUnits = getWindUnits();
+
+      context.todayWind= Math.round(weather_data.current.wind_speed) + currWindUnits;
+      context.dayTwoWind= Math.round(weather_data.daily[1].wind_speed) + currWindUnits;
+      context.dayThreeWind= Math.round(weather_data.daily[2].wind_speed) + currWindUnits;
+      context.dayFourWind= Math.round(weather_data.daily[3].wind_speed) + currWindUnits;
+      context.dayFiveWind= Math.round(weather_data.daily[4].wind_speed) + currWindUnits;
+      context.daySixWind=Math.round(weather_data.daily[5].wind_speed) + currWindUnits;
+      context.daySevenWind= Math.round(weather_data.daily[6].wind_speed) + currWindUnits;
 
       context.todayIcon= weather_data.current.weather[0].icon;
       context.dayTwoIcon= weather_data.daily[1].weather[0].icon;
