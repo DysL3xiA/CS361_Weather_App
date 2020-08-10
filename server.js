@@ -80,8 +80,6 @@ app.post("/newsearch", function(req,res){
     }
     else {
       location_data = JSON.parse(body);
-      console.log(location_data.results[0]);
-      console.log(location_data);
       if (location_data.status == 'OK'){
         search.unshift(currentSearch);
         search.pop();
