@@ -152,8 +152,7 @@ app.get("/", function(req, res)
     context.locationLatitude=locationLatitude,
     context.locationLongitude=locationLongitude,
 
-    context.time= date.format('h:mm:ss');
-    context.date= date.format('M-D-YYYY');
+    context.date= date.format('MMM D, YYYY hh:mm A');
 
     context.todayDay= days[date.day()];
     context.dayTwoDay= days[dayTwoDate.day()];
