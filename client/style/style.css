@@ -2,6 +2,15 @@ img {
     height: 60px;
 }
 
+.todayIcon > img {
+  display: inline;
+  height: 100px;
+}
+
+.todayIcon {
+  display: inline;
+}
+
 .newBody {
     max-width: 960px;
     margin: auto;
