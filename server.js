@@ -248,21 +248,23 @@ app.get("/", function(req, res)
     context.daySixIcon= weather_data.daily[5].weather[0].icon;
     context.daySevenIcon= weather_data.daily[6].weather[0].icon;
 
-    context.todaySunrise= weather_data.current.sunrise,
-    context.dayTwoSunrise= weather_data.daily[1].sunrise,
-    context.dayThreeSunrise= weather_data.daily[2].sunrise,
-    context.dayFourSunrise= weather_data.daily[3].sunrise,
-    context.dayFiveSunrise= weather_data.daily[4].sunrise,
-    context.daySixSunrise= weather_data.daily[5].sunrise,
-    context.daySevenSunrise= weather_data.daily[6].sunrise,
+    var sunrise = [];
+    var i;
+    for (i = 0; i < 8; i++) {
+      sunriseDate = moment.unix(weather_data.daily[i].sunrise).tz(weather_data.timezone);
+      sunriseDate = sunriseDate.format('hh:mm A');
+      sunrise.push(sunriseDate);
+    }
+    context["sunrise"] = sunrise;
 
-    context.todaySunset= weather_data.current.sunset,
-    context.dayTwoSunset= weather_data.daily[1].sunset,
-    context.dayThreeSunset= weather_data.daily[2].sunset,
-    context.dayFourSunset= weather_data.daily[3].sunset,
-    context.dayFiveSunset= weather_data.daily[4].sunset,
-    context.daySixSunset= weather_data.daily[5].sunset,
-    context.daySevenSunset= weather_data.daily[6].sunset,
+    var sunset = [];
+    var i;
+    for (i = 0; i < 8; i++) {
+      sunsetDate = moment.unix(weather_data.daily[i].sunset).tz(weather_data.timezone);
+      sunsetDate = sunsetDate.format('hh:mm A');
+      sunset.push(sunsetDate);
+    }
+    context["sunset"] = sunset;
 
     context.search= search;
     context.currentSearch= currentSearch;
