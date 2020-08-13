@@ -57,11 +57,6 @@ function getWindUnits() {
   }
 }
 
-// Home Page. Set Search to User's Location
-app.get("/", function(req,res){
-      res.redirect("/weather");
-});
-
 //Clear Search History. Redirect to Home Page to set User's Location. Triggered by 'Clear History' button.
 app.post("/clearhistory", function(req,res){
       search = new Array(" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ");
@@ -71,21 +66,29 @@ app.post("/clearhistory", function(req,res){
 //Explicit Search. Triggered by 'Get Weather' button.
 app.post("/newsearch", function(req,res){
   previousSearch = currentSearch;
-  currentSearch = req.body.location;
+  var user_latitude = req.query.latitude;
+  var user_longitude = req.query.longitude;
+  console.log(user_latitude);
+  console.log(user_longitude);
+  if (user_latitude) {
+    address = user_latitude + ", " + user_longitude;
+  }
+  else if (req.body.location){
+    currentSearch = req.body.location;
+    address = req.body.location;
+    search.unshift(currentSearch);
+    search.pop();
+  }
   let googleApiKey = 'AIzaSyBBPH7E-1UWMVO13QgYk3kVfYYpqqM-oLQ';
-   let url = `https://maps.googleapis.com/maps/api/geocode/json?address=${currentSearch}&key=${googleApiKey}`;
+  let url = `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${googleApiKey}`;
   request(url, function (err, response, body) {
     if(err){
       console.log('error:', error);
     }
     else {
       location_data = JSON.parse(body);
-      if (location_data.status == 'OK'){
-        search.unshift(currentSearch);
-        search.pop();
-      }
     }
-    res.redirect("/weather");
+    res.redirect("/");
   });
 });
 
@@ -96,25 +99,25 @@ app.post("/changeMetric", function(req,res)
 });
 
 //Main Route - Render Weather Information
-app.get("/weather", function(req, res)
+app.get("/", function(req, res)
 {
   var weather_data;
   let apiKey = '364c1375ab235fcd9a6e5c2a537733e6';
   if (location_data){
-    if (location_data.status == 'OK') 
+    if (location_data.status == 'OK')
     {
       city = location_data.results[0].formatted_address;
       lat = location_data.results[0].geometry.location.lat;
       lon = location_data.results[0].geometry.location.lng;
     }
-    else 
+    else
     {
       city = 'Portland, OR';
       lat = 45.523064;
       lon = -122.676483;
     }
   }
-  else 
+  else
   {
     city = 'Portland, OR';
     lat = 45.523064;
@@ -126,7 +129,7 @@ app.get("/weather", function(req, res)
     {
        console.log('error:', error);
     }
-    else 
+    else
     {
       weather_data = JSON.parse(body);
     }
@@ -245,7 +248,7 @@ app.get("/weather", function(req, res)
       context.dayFiveIcon= weather_data.daily[4].weather[0].icon;
       context.daySixIcon= weather_data.daily[5].weather[0].icon;
       context.daySevenIcon= weather_data.daily[6].weather[0].icon;
-    
+
       context.todaySunrise= weather_data.current.sunrise,
 	    context.dayTwoSunrise= weather_data.daily[1].sunrise,
       context.dayThreeSunrise= weather_data.daily[2].sunrise,
@@ -264,7 +267,7 @@ app.get("/weather", function(req, res)
 
       context.search= search;
       context.currentSearch= currentSearch;
-      
+
       res.render("index",context);
   });
 });

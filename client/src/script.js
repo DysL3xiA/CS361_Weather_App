@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', createRadio());
+document.addEventListener('DOMContentLoaded', createRadio(), getLocation());
 
 // dynamically create radio buttons
 
@@ -19,6 +19,31 @@ function updateMetric(event, id){
 	req.send(null);
 };
 
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(sendPosition);
+  } else {
+    console.log("Geolocation is not supported by this browser.");
+  }
+};
+
+function sendPosition(position) {
+  let req = new XMLHttpRequest();
+  const url = '/newsearch';
+  req.open('POST', url + "?latitude=" + position.coords.latitude + "&longitude=" + position.coords.longitude, true);
+  req.setRequestHeader('Content-Type', 'application/json');
+  req.addEventListener('load',function(){
+    if(req.status >= 200 && req.status < 400){
+      console.log(position.coords.latitude);
+      console.log(position.coords.longitude);
+    }
+    else {
+      console.log("Error in network request: " + req.statusText);
+    }
+  });
+  req.send(null);
+};
+
 function createRadio(){
     let metricName = document.getElementsByClassName("temp")[0].innerHTML;
     metricName = metricName.charAt(metricName.length-1);
@@ -27,14 +52,14 @@ function createRadio(){
     if (metricName != null || metricName != undefined){
         if (metricName === 'F'){
             localStorage.setItem('metric','imperial');
-            metricType = localStorage.getItem('metric'); 
+            metricType = localStorage.getItem('metric');
         }
         else if (metricName === 'C'){
             localStorage.setItem('metric','metric');
             metricType = localStorage.getItem('metric');
         }
     }
-    
+
     if (metricType === null || metricType == undefined){
         localStorage.setItem('metric','imperial');
         metricType = localStorage.getItem('metric');
@@ -60,7 +85,7 @@ function createRadio(){
         btn_input.addEventListener("click", ()=>updateMetric(event, metrics[i]));
         btn_input.setAttribute("autocomplete", "off");
         btn_label.innerHTML = names[i];
-        
+
         btn_div.appendChild(btn_label);
         btn_label.appendChild(btn_input);
         radio_div.appendChild(btn_div);
@@ -70,4 +95,4 @@ function createRadio(){
             btn_input.setAttribute("checked", "true");
         }
     }
-}
+};
