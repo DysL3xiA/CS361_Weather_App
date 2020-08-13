@@ -166,13 +166,22 @@ app.get("/", function(req, res)
     context.dayTwoDayShort= daysShort[dayTwoDate.day()];
     context.dayThreeDayShort= daysShort[dayThreeDate.day()];
 
-    context.todayDate= date.format('D');
+    context.todayDate= date.format('ddd M/D');
     context.dayTwoDate= dayTwoDate.format('D');
     context.dayThreeDate= dayThreeDate.format('D');
     context.dayFourDate= dayFourDate.format('D');
     context.dayFiveDate= dayFiveDate.format('D');
     context.daySixDate= daySixDate.format('D');
     context.daySevenDate= daySevenDate.format('D');
+
+    var dates = [];
+    var i;
+    for (i = 0; i < 8; i++) {
+      var tempDate = moment.unix(weather_data.daily[i].dt).tz(weather_data.timezone);
+      tempDate = tempDate.format('ddd M/D');
+      dates.push(tempDate);
+    }
+
 
     var currentUnits = getTempUnits();
     var temp = [];
@@ -235,6 +244,7 @@ app.get("/", function(req, res)
       sunset.push(sunsetDate);
     }
 
+    context["dates"] = dates;
     context["temp"] = temp;
     context["high_temp"] = high_temp;
     context["low_temp"] = low_temp;
