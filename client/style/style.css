@@ -79,12 +79,6 @@ img {
     cursor: pointer;
 }
 
-.weather-widget .future .day:hover
-{
-    color: #fff;
-    background-color: #F68D2E;
-}
-
 .weather-widget .future .day h3
 {
     text-transform: uppercase;
