@@ -175,14 +175,12 @@ app.get("/", function(req, res)
     context.daySevenDate= daySevenDate.format('D');
 
     var currentUnits = getTempUnits();
-
-    context.todayTemperature= Math.round(weather_data.current.temp)+ currentUnits;
-    context.dayTwoTemperature= weather_data.daily[1].temp.day + currentUnits;
-    context.dayThreeTemperature= weather_data.daily[2].temp.day + currentUnits;
-    context.dayFourTemperature= weather_data.daily[3].temp.day + currentUnits;
-    context.dayFiveTemperature= weather_data.daily[4].temp.day + currentUnits;
-    context.daySixTemperature= weather_data.daily[5].temp.day + currentUnits;
-    context.daySevenTemperature= weather_data.daily[6].temp.day + currentUnits;
+    var temp = [];
+    var i;
+    temp.push(Math.round(weather_data.current.temp)+ currentUnits);
+    for (i = 1; i < 8; i++) {
+      temp.push(Math.round(weather_data.daily[i].temp.day) + currentUnits);
+    }
 
     var high_temp = [];
     var i;
@@ -237,6 +235,7 @@ app.get("/", function(req, res)
       sunset.push(sunsetDate);
     }
 
+    context["temp"] = temp;
     context["high_temp"] = high_temp;
     context["low_temp"] = low_temp;
     context["pressure"] = pressure;
