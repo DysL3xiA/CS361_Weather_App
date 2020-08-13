@@ -232,21 +232,17 @@ app.get("/", function(req, res)
 
     var currWindUnits = getWindUnits();
 
-    context.todayWind= Math.round(weather_data.current.wind_speed) + currWindUnits;
-    context.dayTwoWind= Math.round(weather_data.daily[1].wind_speed) + currWindUnits;
-    context.dayThreeWind= Math.round(weather_data.daily[2].wind_speed) + currWindUnits;
-    context.dayFourWind= Math.round(weather_data.daily[3].wind_speed) + currWindUnits;
-    context.dayFiveWind= Math.round(weather_data.daily[4].wind_speed) + currWindUnits;
-    context.daySixWind=Math.round(weather_data.daily[5].wind_speed) + currWindUnits;
-    context.daySevenWind= Math.round(weather_data.daily[6].wind_speed) + currWindUnits;
+    var wind = [];
+    var i;
+    for (i = 0; i < 8; i++) {
+      wind.push(weather_data.daily[i].wind_speed + currWindUnits);
+    }
 
-    context.todayIcon= weather_data.current.weather[0].icon;
-    context.dayTwoIcon= weather_data.daily[1].weather[0].icon;
-    context.dayThreeIcon= weather_data.daily[2].weather[0].icon;
-    context.dayFourIcon= weather_data.daily[3].weather[0].icon;
-    context.dayFiveIcon= weather_data.daily[4].weather[0].icon;
-    context.daySixIcon= weather_data.daily[5].weather[0].icon;
-    context.daySevenIcon= weather_data.daily[6].weather[0].icon;
+    var icons = [];
+    var i;
+    for (i = 0; i < 8; i++) {
+      icons.push(weather_data.daily[i].weather[0].icon);
+    }
 
     var sunrise = [];
     var i;
@@ -255,7 +251,6 @@ app.get("/", function(req, res)
       sunriseDate = sunriseDate.format('hh:mm A');
       sunrise.push(sunriseDate);
     }
-    context["sunrise"] = sunrise;
 
     var sunset = [];
     var i;
@@ -264,8 +259,11 @@ app.get("/", function(req, res)
       sunsetDate = sunsetDate.format('hh:mm A');
       sunset.push(sunsetDate);
     }
-    context["sunset"] = sunset;
 
+    context["wind"] = wind;
+    context["icons"] = icons;
+    context["sunrise"] = sunrise;
+    context["sunset"] = sunset;
     context.search= search;
     context.currentSearch= currentSearch;
 

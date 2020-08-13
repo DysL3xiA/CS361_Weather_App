@@ -53,8 +53,8 @@
                     <div class="info">
                         <div>&nbsp;</div>
                         <div class="city"><small><small>CITY:</small></small> {{currentLocation}}</div>
-                        <div class="temp"><p class="todayIcon"><img src="/img/{{todayIcon}}.svg"></p>{{todayTemperature}}</div>
-                        <div class="wind"><small><small>WIND:</small></small> {{todayWind}}</div>
+                        <div class="temp"><p class="todayIcon"><img src="/img/{{icons.[0]}}.svg"></p>{{todayTemperature}}</div>
+                        <div class="wind"><small><small>WIND:</small></small> {{wind.[0]}}</div>
                         <div class="humidity"><small><small>HUMIDITY:</small></small> {{todayHumidity}}%</div>
                         <div class="pressure"><small><small>PRESSURE: </small></small>{{today_pressure}} <small>Pa</small></div>
 			<div>&nbsp;</div>
@@ -63,15 +63,15 @@
                 <div class="future">
                     <div class="day">
                         <h3>{{todayDayShort}}</h3>
-                        <p><img src="/img/{{todayIcon}}.svg"></p>
+                        <p><img src="/img/{{icons.[0]}}.svg"></p>
                     </div>
                     <div class="day">
                         <h3>{{dayTwoDayShort}}</h3>
-                        <p><img src="/img/{{dayTwoIcon}}.svg"></p>
+                        <p><img src="/img/{{icons.[1]}}.svg"></p>
                     </div>
                     <div class="day">
                         <h3>{{dayThreeDayShort}}</h3>
-                        <p><img src="/img/{{dayThreeIcon}}.svg"></p>
+                        <p><img src="/img/{{icons.[2]}}.svg"></p>
                     </div>
                 </div>
             </div>
@@ -100,7 +100,7 @@
           <div class="row align-items-center">
             <div class="col align-self-center">Date: {{todayDay}} {{todayDate}}</div>
             <div class="col align-self-center">Temperature: {{current_high_temp}} / {{current_low_temp}}</div>
-            <div class="col align-self-center"><img src="/img/{{todayIcon}}.svg"></div>
+            <div class="col align-self-center"><img src="/img/{{icons.[0]}}.svg"></div>
           </div>
         </button>
       </h5>
@@ -117,7 +117,7 @@
             </div>
           </div>
           <div class="right-accordion">
-            {{todayWind}} Wind Speed <br>
+            Wind: {{wind.[0]}}  <br>
             {{todayHumidity}}% Humidity <br>
             {{today_pressure}} Pa Pressure
           </div>
@@ -132,7 +132,7 @@
           <div class="row align-items-center">
             <div class="col">Date: {{dayTwoDay}} {{dayTwoDate}}</div>
             <div class="col">Temperature: {{dayTwo_high_temp}} / {{dayTwo_low_temp}}</div>
-            <div class="col"><img src="/img/{{dayTwoIcon}}.svg"></div>
+            <div class="col"><img src="/img/{{icons.[1]}}.svg"></div>
           </div>
         </button>
       </h5>
@@ -148,7 +148,7 @@
           </div>
         </div>
         <div class="right-accordion">
-          {{dayTwoWind}} Wind Speed <br>
+          Wind: {{wind.[1]}}  <br>
           {{dayTwoHumidity}}% Humidity <br>
           {{dayTwo_pressure}} Pa Pressure
         </div>
@@ -163,7 +163,7 @@
           <div class="row align-items-center">
             <div class="col">Date: {{dayThreeDay}} {{dayThreeDate}}</div>
             <div class="col">Temperature: {{dayThree_high_temp}} / {{dayThree_low_temp}}</div>
-            <div class="col"><img src="/img/{{dayThreeIcon}}.svg"></div>
+            <div class="col"><img src="/img/{{icons.[2]}}.svg"></div>
           </div>
         </button>
       </h5>
@@ -179,7 +179,7 @@
           </div>
         </div>
         <div class="right-accordion">
-          {{dayThreeWind}} Wind Speed <br>
+          Wind: {{wind.[2]}}  <br>
           {{dayThreeHumidity}}% Humidity <br>
           {{dayThree_pressure}} Pa Pressure
         </div>
@@ -194,7 +194,7 @@
           <div class="row align-items-center">
             <div class="col">Date: {{dayFourDay}} {{dayFourDate}}</div>
             <div class="col">Temperature: {{dayFour_high_temp}} / {{dayFour_low_temp}}</div>
-            <div class="col"><img src="/img/{{dayFourIcon}}.svg"></div>
+            <div class="col"><img src="/img/{{icons.[3]}}.svg"></div>
           </div>
         </button>
       </h5>
@@ -210,7 +210,7 @@
           </div>
         </div>
         <div class="right-accordion">
-          {{dayFourWind}} Wind Speed <br>
+          Wind: {{wind.[3]}}  <br>
           {{dayFourHumidity}}% Humidity <br>
           {{dayFour_pressure}} Pa Pressure
         </div>
@@ -225,7 +225,7 @@
           <div class="row align-items-center">
             <div class="col">Date: {{dayFiveDay}} {{dayFiveDate}}</div>
             <div class="col">Temperature: {{dayFive_high_temp}} / {{dayFive_low_temp}}</div>
-            <div class="col"><img src="/img/{{dayFiveIcon}}.svg"></div>
+            <div class="col"><img src="/img/{{icons.[4]}}.svg"></div>
           </div>
         </button>
       </h5>
@@ -241,7 +241,7 @@
           </div>
         </div>
         <div class="right-accordion">
-          {{dayFiveWind}} Wind Speed <br>
+          Wind: {{wind.[4]}} <br>
           {{dayFiveHumidity}}% Humidity <br>
           {{dayFive_pressure}} Pa Pressure
         </div>
@@ -256,7 +256,7 @@
           <div class="row align-items-center">
             <div class="col">Date: {{daySixDay}} {{daySixDate}}</div>
             <div class="col">Temperature: {{daySix_high_temp}} / {{daySix_low_temp}}</div>
-            <div class="col"><img src="/img/{{daySixIcon}}.svg"></div>
+            <div class="col"><img src="/img/{{icons.[5]}}.svg"></div>
           </div>
         </button>
       </h5>
@@ -272,7 +272,7 @@
           </div>
         </div>
         <div class="right-accordion">
-          {{daySixWind}} Wind Speed <br>
+          Wind: {{wind.[5]}} <br>
           {{daySixHumidity}}% Humidity <br>
           {{daySix_pressure}} Pa Pressure
         </div>
@@ -287,7 +287,7 @@
           <div class="row align-items-center">
             <div class="col">Date: {{daySevenDay}} {{daySevenDate}}</div>
             <div class="col">Temperature: {{daySeven_high_temp}} / {{daySeven_low_temp}}</div>
-            <div class="col"><img src="/img/{{daySevenIcon}}.svg"></div>
+            <div class="col"><img src="/img/{{icons.[6]}}.svg"></div>
           </div>
         </button>
       </h5>
@@ -303,7 +303,7 @@
           </div>
         </div>
         <div class="right-accordion">
-          {{daySevenWind}} Wind Speed <br>
+          Wind: {{wind.[6]}} <br>
           {{daySevenHumidity}}% Humidity <br>
           {{daySeven_pressure}} Pa Pressure
         </div>
