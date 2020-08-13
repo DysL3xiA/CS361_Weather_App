@@ -184,20 +184,17 @@ app.get("/", function(req, res)
     context.daySixTemperature= weather_data.daily[5].temp.day + currentUnits;
     context.daySevenTemperature= weather_data.daily[6].temp.day + currentUnits;
 
-    context.current_high_temp= Math.round(weather_data.daily[0].temp.max) + currentUnits;
-    context.current_low_temp= Math.round(weather_data.daily[0].temp.min) + currentUnits;
-    context.dayTwo_high_temp = Math.round(weather_data.daily[1].temp.max) + currentUnits;
-    context.dayTwo_low_temp= Math.round(weather_data.daily[1].temp.min) + currentUnits;
-    context.dayThree_high_temp= Math.round(weather_data.daily[2].temp.max) + currentUnits;
-    context.dayThree_low_temp= Math.round(weather_data.daily[2].temp.min) + currentUnits;
-    context.dayFour_high_temp= Math.round(weather_data.daily[3].temp.max) + currentUnits;
-    context.dayFour_low_temp= Math.round(weather_data.daily[3].temp.min) + currentUnits;
-    context.dayFive_high_temp= Math.round(weather_data.daily[4].temp.max) + currentUnits;
-    context.dayFive_low_temp= Math.round(weather_data.daily[4].temp.min) + currentUnits;
-    context.daySix_high_temp= Math.round(weather_data.daily[5].temp.max) + currentUnits;
-    context.daySix_low_temp= Math.round(weather_data.daily[5].temp.min) + currentUnits;
-    context.daySeven_high_temp= Math.round(weather_data.daily[6].temp.max) + currentUnits;
-    context.daySeven_low_temp= Math.round(weather_data.daily[6].temp.min) + currentUnits;
+    var high_temp = [];
+    var i;
+    for (i = 0; i < 8; i++) {
+      high_temp.push(Math.round(weather_data.daily[i].temp.max) + currentUnits);
+    }
+
+    var low_temp = [];
+    var i;
+    for (i = 0; i < 8; i++) {
+      low_temp.push(Math.round(weather_data.daily[i].temp.min) + currentUnits);
+    }
 
     var pressure = [];
     var i;
@@ -240,6 +237,8 @@ app.get("/", function(req, res)
       sunset.push(sunsetDate);
     }
 
+    context["high_temp"] = high_temp;
+    context["low_temp"] = low_temp;
     context["pressure"] = pressure;
     context["humidity"] = humidity;
     context["wind"] = wind;
