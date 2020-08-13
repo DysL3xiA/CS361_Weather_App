@@ -212,16 +212,13 @@ app.get("/", function(req, res)
   	context.daySix_day_temp= Math.round(weather_data.daily[5].temp.day) + currentUnits,
   	context.daySix_night_temp= Math.round(weather_data.daily[5].temp.night) + currentUnits,
   	context.daySeven_day_temp= Math.round(weather_data.daily[6].temp.day) + currentUnits,
-  	context.daySeven_night_temp= Math.round(weather_data.daily[6].temp.night) + currentUnits,
+  	context.daySeven_night_temp= Math.round(weather_data.daily[6].temp.night) + currentUnits;
 
-    context.today_pressure= weather_data.current.pressure;
-    context.dayTwo_pressure= weather_data.daily[1].pressure;
-    context.dayThree_pressure= weather_data.daily[2].pressure
-    context.dayFour_pressure= weather_data.daily[3].pressure;
-    context.dayFive_pressure= weather_data.daily[4].pressure
-    context.daySix_pressure= weather_data.daily[5].pressure;
-    context.daySeven_pressure= weather_data.daily[6].pressure;
-
+    var pressure = [];
+    var i;
+    for (i = 0; i < 8; i++) {
+      pressure.push(weather_data.daily[i].pressure);
+    }
 
     var humidity = [];
     var i;
@@ -258,6 +255,7 @@ app.get("/", function(req, res)
       sunset.push(sunsetDate);
     }
 
+    context["pressure"] = pressure;
     context["humidity"] = humidity;
     context["wind"] = wind;
     context["icons"] = icons;
