@@ -199,21 +199,6 @@ app.get("/", function(req, res)
     context.daySeven_high_temp= Math.round(weather_data.daily[6].temp.max) + currentUnits;
     context.daySeven_low_temp= Math.round(weather_data.daily[6].temp.min) + currentUnits;
 
-    context.current_day_temp= Math.round(weather_data.daily[0].temp.day) + currentUnits,
-  	context.current_night_temp= Math.round(weather_data.daily[0].temp.night) + currentUnits,
-  	context.dayTwo_day_temp= Math.round(weather_data.daily[1].temp.day) + currentUnits,
-  	context.dayTwo_night_temp= Math.round(weather_data.daily[1].temp.night) + currentUnits,
-  	context.dayThree_day_temp= Math.round(weather_data.daily[2].temp.day) + currentUnits,
-  	context.dayThree_night_temp= Math.round(weather_data.daily[2].temp.night) + currentUnits,
-  	context.dayFour_day_temp= Math.round(weather_data.daily[3].temp.day) + currentUnits,
-  	context.dayFour_night_temp= Math.round(weather_data.daily[3].temp.night) + currentUnits,
-  	context.dayFive_day_temp= Math.round(weather_data.daily[4].temp.day) + currentUnits,
-  	context.dayFive_night_temp= Math.round(weather_data.daily[4].temp.night) + currentUnits,
-  	context.daySix_day_temp= Math.round(weather_data.daily[5].temp.day) + currentUnits,
-  	context.daySix_night_temp= Math.round(weather_data.daily[5].temp.night) + currentUnits,
-  	context.daySeven_day_temp= Math.round(weather_data.daily[6].temp.day) + currentUnits,
-  	context.daySeven_night_temp= Math.round(weather_data.daily[6].temp.night) + currentUnits;
-
     var pressure = [];
     var i;
     for (i = 0; i < 8; i++) {
