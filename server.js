@@ -29,6 +29,7 @@ app.set('view engine', 'handlebars');
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
 var location_data;
+var address;
 let city;
 let lat;
 let lon;
@@ -66,19 +67,20 @@ app.post("/clearhistory", function(req,res){
 //Explicit Search. Triggered by 'Get Weather' button.
 app.post("/newsearch", function(req,res){
   previousSearch = currentSearch;
-  var user_latitude = req.query.latitude;
-  var user_longitude = req.query.longitude;
-  console.log(user_latitude);
-  console.log(user_longitude);
-  if (user_latitude) {
-    address = user_latitude + ", " + user_longitude;
-  }
-  else if (req.body.location){
+  if (req.body.location) {
     currentSearch = req.body.location;
     address = req.body.location;
     search.unshift(currentSearch);
     search.pop();
   }
+  else {
+    address = currentSearch;
+  }
+  convertToGeocode(res);
+});
+
+
+function convertToGeocode(res){
   let googleApiKey = 'AIzaSyBBPH7E-1UWMVO13QgYk3kVfYYpqqM-oLQ';
   let url = `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${googleApiKey}`;
   request(url, function (err, response, body) {
@@ -90,12 +92,22 @@ app.post("/newsearch", function(req,res){
     }
     res.redirect("/");
   });
+};
+
+app.post("/location", function(req,res) {
+  var user_latitude = req.query.latitude;
+  var user_longitude = req.query.longitude;
+  if (user_latitude) {
+    address = user_latitude + ", " + user_longitude;
+  }
+  convertToGeocode(res);
 });
+
 
 app.post("/changeMetric", function(req,res)
 {
   units = req.query.metric;
-  res.send(null);
+  convertToGeocode(res);
 });
 
 //Main Route - Render Weather Information
@@ -106,7 +118,7 @@ app.get("/", function(req, res)
   if (location_data){
     if (location_data.status == 'OK')
     {
-      city = location_data.results[0].formatted_address;
+      city = get_city(location_data);
       lat = location_data.results[0].geometry.location.lat;
       lon = location_data.results[0].geometry.location.lng;
     }
@@ -123,7 +135,9 @@ app.get("/", function(req, res)
     lat = 45.523064;
     lon = -122.676483;
   }
+
   let url = `http://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=${units}&appid=${apiKey}`;
+
   request(url, function (err, response, body){
     if(err)
     {
@@ -134,54 +148,22 @@ app.get("/", function(req, res)
       weather_data = JSON.parse(body);
     }
 
-    let days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-    let daysShort = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    var context = {};
+    context.current_location = city,
+    context.location_latitude = lat,
+    context.location_longitude = lon;
 
     var date = moment.unix(weather_data.current.dt).tz(weather_data.timezone);
-    var dayTwoDate = moment.unix(weather_data.daily[1].dt).tz(weather_data.timezone);
-    var dayThreeDate = moment.unix(weather_data.daily[2].dt).tz(weather_data.timezone);
-    var dayFourDate = moment.unix(weather_data.daily[3].dt).tz(weather_data.timezone);
-    var dayFiveDate = moment.unix(weather_data.daily[4].dt).tz(weather_data.timezone);
-    var daySixDate = moment.unix(weather_data.daily[5].dt).tz(weather_data.timezone);
-    var daySevenDate = moment.unix(weather_data.daily[6].dt).tz(weather_data.timezone);
-    var locationLatitude = lat;
-    var locationLongitude = lon;
-
-    var context={};
-    context.currentLocation= city;
-    context.locationLatitude=locationLatitude,
-    context.locationLongitude=locationLongitude,
-
-    context.date= date.format('MMM D, YYYY hh:mm A');
-
-    context.todayDay= days[date.day()];
-    context.dayTwoDay= days[dayTwoDate.day()];
-    context.dayThreeDay= days[dayThreeDate.day()];
-    context.dayFourDay= days[dayFourDate.day()];
-    context.dayFiveDay= days[dayFiveDate.day()];
-    context.daySixDay= days[daySixDate.day()];
-    context.daySevenDay= days[daySevenDate.day()];
-
-    context.todayDayShort= daysShort[date.day()];
-    context.dayTwoDayShort= daysShort[dayTwoDate.day()];
-    context.dayThreeDayShort= daysShort[dayThreeDate.day()];
-
-    context.todayDate= date.format('ddd M/D');
-    context.dayTwoDate= dayTwoDate.format('D');
-    context.dayThreeDate= dayThreeDate.format('D');
-    context.dayFourDate= dayFourDate.format('D');
-    context.dayFiveDate= dayFiveDate.format('D');
-    context.daySixDate= daySixDate.format('D');
-    context.daySevenDate= daySevenDate.format('D');
+    context.date = date.format('MMM D, YYYY hh:mm A');
 
     var dates = [];
+    var day_short = [];
     var i;
     for (i = 0; i < 8; i++) {
       var tempDate = moment.unix(weather_data.daily[i].dt).tz(weather_data.timezone);
-      tempDate = tempDate.format('ddd M/D');
-      dates.push(tempDate);
+      dates.push(tempDate.format('ddd M/D'));
+      day_short.push(tempDate.format('ddd'));
     }
-
 
     var currentUnits = getTempUnits();
     var temp = [];
@@ -245,6 +227,7 @@ app.get("/", function(req, res)
     }
 
     context["dates"] = dates;
+    context["day_short"] = day_short;
     context["temp"] = temp;
     context["high_temp"] = high_temp;
     context["low_temp"] = low_temp;
@@ -260,3 +243,17 @@ app.get("/", function(req, res)
     res.render("index",context);
   });
 });
+
+function get_city(location_data) {
+  var index;
+  var city;
+  for(var i = 0; i < location_data.results.length; i++) {
+    if (location_data.results[i].types[0] == "locality" || location_data.results[i].types[0] == "postal_code"){
+      city = location_data.results[i].formatted_address;
+    }
+    else {
+      city = location_data.results[0].formatted_address;
+    }
+  }
+  return city;
+}
