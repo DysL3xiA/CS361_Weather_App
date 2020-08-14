@@ -11,86 +11,92 @@
   </div>
 </div>
 
-
-
 <div class="row mb-3 top-buffer">
-  <div class="col">
+  <div class="col-xs-4">
   </div>
-  <div class="col">
-    <form class = "location" action="/newsearch" method="POST">
-      <label for="location"></label>
-      <input type="text" id="location" name="location" placeholder="Enter Zipcode or City">
-      <input class="btn btn-primary btn-sm" type="submit" value="Get Weather"><br><br>
+  <div class="col-xs-4" style="padding-right: 0px; width: 283px; padding-left: 5px" >
+    <form class='form-inline' action="/newsearch" method="POST" style="margin-right: 1px;">
+      <div class="input-group">
+        <input type="text" id="location" name="location" class="form-control" placeholder="Enter City or Zipcode"/>
+        <span class="input-group-btn">
+          <input class="btn btn-primary btn-sm" type="submit" value="Get Weather" style="margin-left: 10px;">
+        </span>
+      </div>
     </form>
   </div>
-  <div class="col">
+  <div class="col-xs-4" style="padding-left: 1px">
+    <form class='form-inline' id="current_location" action="/location" method="post">
+      <div class="input-group" style="padding-top: 3px">
+          <input class="btn btn-primary btn-sm" id="location_icon" type="image" src="/img/current_location.svg" />
+      </div>
+    </form>
   </div>
 </div>
 
-<div class="container" style="padding-bottom: 25px;">
-    <div class="row">
-      <div class="col">
-        {{!-- Initial code for search history display. #each loops through the 'search' array.
-          /clearhistory POST action clears 'search' array and and redirects to "/". --}}
-          <div class="search-history">
-              <p style="font-size: 16px; font-weight: 600; padding:5px; margin:0rem">
-                Search History:
-              </p>
-              <p style="padding:5px; height:75%">
-                {{#each search}}
-                {{.}}<br>
-                {{/each}}
-              </p>
-              <form id="clearsearchhistory" action="/clearhistory" method="POST"
-                style="padding:5px">
-                <button class="btn btn-primary btn-sm">Clear History</button>
-              </form>
-          </div>
-        </div>
-        <div class="col">
-            <div class="weather-widget">
-                <div class="current">
-                    <div class="info">
-                        <div>&nbsp;</div>
-                        <div class="city"><small><small>CITY:</small></small> {{currentLocation}}</div>
-                        <div class="temp"><p class="todayIcon"><img src="/img/{{icons.[0]}}.svg"></p>{{temp.[0]}}</div>
-                        <div class="wind"><small><small>WIND:</small></small> {{wind.[0]}}</div>
-                        <div class="humidity"><small><small>HUMIDITY:</small></small> {{humidity.[0]}}%</div>
-                        <div class="pressure"><small><small>PRESSURE: </small></small>{{pressure.[0]}} <small>mb</small></div>
-			<div>&nbsp;</div>
-                    </div>
-                </div>
-                <div class="future">
-                    <div class="day">
-                        <h3>{{todayDayShort}}</h3>
-                        <p><img src="/img/{{icons.[0]}}.svg"></p>
-                    </div>
-                    <div class="day">
-                        <h3>{{dayTwoDayShort}}</h3>
-                        <p><img src="/img/{{icons.[1]}}.svg"></p>
-                    </div>
-                    <div class="day">
-                        <h3>{{dayThreeDayShort}}</h3>
-                        <p><img src="/img/{{icons.[2]}}.svg"></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-          {{!--Documentation Source: https://developers.google.com/maps/documentation/javascript/adding-a-google-map --}}
-            <div class="weather-map" id="map"></div> {{!-- Div Element for the Map--}}
-            <script>
-              function initMap(){
-              var locationLatitude = {{locationLatitude}};
-              var locationLongitude = {{locationLongitude}};
-              var weatherLocation = {lat:locationLatitude,lng:locationLongitude};
-              var map = new google.maps.Map(document.getElementById('map'), {zoom:6,center:weatherLocation});
-              var marker = new google.maps.Marker({position:weatherLocation, map:map});
-              }
-            </script>
-        </div>
+<div class="row">
+  <div class="col">
+    {{!-- Initial code for search history display. #each loops through the 'search' array.
+      /clearhistory POST action clears 'search' array and and redirects to "/". --}}
+    <div class="search-history">
+      <p style="font-size: 12px; font-weight: 600; padding:10px; margin:auto">
+        SEARCH HISTORY:
+      </p>
+      <p style="padding:14px; height:75%">
+        {{#each search}}
+        {{.}}<br>
+        {{/each}}
+      </p>
+      <form id="clearsearchhistory" action="/clearhistory" method="POST"
+        style="padding:5px">
+        <button class="btn btn-primary btn-sm" style="margin:1rem" >Clear History</button>
+      </form>
     </div>
+  </div>
+  <div class="col">
+    <div class="weather-widget">
+      <div class="current">
+        <div class="info">
+            <div>&nbsp;</div>
+            <div class="city"><small><small>CITY:</small></small> {{current_location}}</div>
+            <div class="temp"><p class="todayIcon"><img src="/img/{{icons.[0]}}.svg"></p>{{temp.[0]}}</div>
+            <div class="wind"><small><small>WIND:</small></small> {{wind.[0]}}</div>
+            <div class="humidity"><small><small>HUMIDITY:</small></small> {{humidity.[0]}}%</div>
+            <div class="pressure"><small><small>PRESSURE: </small></small>{{pressure.[0]}} <small>mb</small></div>
+            <div>&nbsp;</div>
+        </div>
+      </div>
+      <div class="future">
+        <div class="day">
+          <h3>{{day_short.[0]}}</h3>
+          <p><img src="/img/{{icons.[0]}}.svg"></p>
+        </div>
+        <div class="day">
+          <h3>{{day_short.[1]}}</h3>
+          <p><img src="/img/{{icons.[1]}}.svg"></p>
+        </div>
+        <div class="day">
+          <h3>{{day_short.[2]}}</h3>
+          <p><img src="/img/{{icons.[2]}}.svg"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    {{!--Documentation Source: https://developers.google.com/maps/documentation/javascript/adding-a-google-map --}}
+    <div class="weather-map" id="map"></div> {{!-- Div Element for the Map--}}
+    <script>
+      function initMap(){
+      var locationLatitude = {{location_latitude}};
+      var locationLongitude = {{location_longitude}};
+      var weatherLocation = {lat:locationLatitude,lng:locationLongitude};
+      var map = new google.maps.Map(document.getElementById('map'), {zoom:7,center:weatherLocation});
+      var marker = new google.maps.Marker({position:weatherLocation, map:map});
+      }
+    </script>
+  </div>
 </div>
+
+<br></br>
 
 <div id="accordion">
   <div class="card">
