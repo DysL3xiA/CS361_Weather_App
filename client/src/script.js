@@ -1,23 +1,8 @@
-document.addEventListener('DOMContentLoaded', createRadio(), getLocation());
-
-// dynamically create radio buttons
-
-function updateMetric(event, id){
-    let req = new XMLHttpRequest();
-    const url = '/changeMetric';
-
-    req.open('POST', url + "?metric=" + id, true);
-    req.setRequestHeader('Content-Type', 'application/json');
-
-    req.addEventListener('load',function(){
-		if(req.status >= 200 && req.status < 400){
-            localStorage.setItem('metric', id);
-			location.reload();
-		} else {
-			console.log("Error in network request: " + req.statusText);
-		}});
-	req.send(null);
-};
+document.addEventListener('DOMContentLoaded', createRadio());
+document.getElementById('current_location').addEventListener("click", function(){
+  getLocation();
+  document.getElementById('current_location').submit();
+});
 
 function getLocation() {
   if (navigator.geolocation) {
@@ -26,21 +11,34 @@ function getLocation() {
     console.log("Geolocation is not supported by this browser.");
   }
 };
+// dynamically create radio buttons
+
+
+function updateMetric(event, id){
+  let req = new XMLHttpRequest();
+  const url = '/changeMetric';
+
+  req.open('POST', url + "?metric=" + id, true);
+  req.setRequestHeader('Content-Type', 'application/json');
+
+  req.addEventListener('load',function(){
+		if(req.status >= 200 && req.status < 400){
+      localStorage.setItem('metric', id);
+			$( "#accordion" ).load(window.location.href + " #accordion");
+      $( ".weather-widget" ).load(window.location.href + " .weather-widget");
+		}
+    else {
+			console.log("Error in network request: " + req.statusText);
+		}
+  });
+	req.send(null);
+};
 
 function sendPosition(position) {
   let req = new XMLHttpRequest();
-  const url = '/newsearch';
+  const url = '/location';
   req.open('POST', url + "?latitude=" + position.coords.latitude + "&longitude=" + position.coords.longitude, true);
   req.setRequestHeader('Content-Type', 'application/json');
-  req.addEventListener('load',function(){
-    if(req.status >= 200 && req.status < 400){
-      console.log(position.coords.latitude);
-      console.log(position.coords.longitude);
-    }
-    else {
-      console.log("Error in network request: " + req.statusText);
-    }
-  });
   req.send(null);
 };
 
@@ -76,7 +74,7 @@ function createRadio(){
 
     for (let i = 0; i < metrics.length; i++){
         let btn_label = document.createElement("label");
-        btn_label.classList.add("btn", "btn-secondary", "metric-button");
+        btn_label.classList.add("btn", "btn-secondary", "metric-button", "btn-sm");
 
         let btn_input = document.createElement("input");
         btn_input.setAttribute("type", "radio");
